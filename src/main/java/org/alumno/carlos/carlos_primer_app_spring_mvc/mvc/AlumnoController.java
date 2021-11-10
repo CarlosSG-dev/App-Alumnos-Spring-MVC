@@ -61,6 +61,8 @@ public class AlumnoController {
 				alumnoService.addAlumno(new Alumno(
 						nombre,dni,Integer.parseInt(edad),
 						ciclo, Integer.parseInt(curso)));
+				
+				model.clear();
 				return "redirect:list-alumno";
 			}catch(NumberFormatException e) {
 				errores=e.getMessage();
@@ -73,6 +75,15 @@ public class AlumnoController {
 			
 			model.addAttribute("errores", errores);
 			return "add-alumno";
+		}
+		
+		@RequestMapping(value = "del-alumno", method = RequestMethod.GET)
+		public String eliminarAlumno(@RequestParam String dni, ModelMap model) {
+			paginaService.setPagina(new Pagina("Añadir alumno", "list-alumno"));
+			model.put("pagina", paginaService.getPagina());
+			alumnoService.delAlumno(dni);
+			model.clear();
+			return "redirect:list-alumno";
 		}
 		
 }
