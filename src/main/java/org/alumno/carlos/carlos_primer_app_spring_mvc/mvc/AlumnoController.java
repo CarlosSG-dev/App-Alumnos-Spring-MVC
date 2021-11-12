@@ -32,6 +32,7 @@ public class AlumnoController {
 			model.put("alumnos", alumnoService.listaAlumnos(orden == null ? "" : orden));	
 			paginaService.setPagina(new Pagina("Lista de alumnos", "list-alumno"));
 			model.put("pagina", paginaService.getPagina());
+			
 			return "list-alumno";
 		
 		}
@@ -41,26 +42,25 @@ public class AlumnoController {
 		public String mostrarAlumno(ModelMap model) {
 			paginaService.setPagina(new Pagina("Añadir alumno", "list-alumno"));
 			model.put("pagina", paginaService.getPagina());
+			model.addAttribute("alumno", new Alumno("Nuevo Alumno","",18,"DAW",2));
 			return "add-alumno";
 		}
 		
 		@RequestMapping(value="add-alumno", method = RequestMethod.POST)
 		public String addAlumno(
-				@RequestParam String dni,
-				@RequestParam String nombre,
-				@RequestParam String edad,
-				@RequestParam String ciclo,
-				@RequestParam String curso,
-				
+//				@RequestParam String dni,
+//				@RequestParam String nombre,
+//				@RequestParam String edad,
+//				@RequestParam String ciclo,
+//				@RequestParam String curso,
+				Alumno alumno,
 				ModelMap model) {
 			
 			String errores="";
 			paginaService.setPagina(new Pagina("Añadir alumno", "list-alumno"));
 			model.addAttribute("pagina", paginaService.getPagina());
 			try {
-				alumnoService.addAlumno(new Alumno(
-						nombre,dni,Integer.parseInt(edad),
-						ciclo, Integer.parseInt(curso)));
+				alumnoService.addAlumno(alumno);
 				
 				model.clear();
 				return "redirect:list-alumno";

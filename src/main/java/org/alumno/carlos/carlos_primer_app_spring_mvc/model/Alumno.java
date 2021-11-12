@@ -19,6 +19,12 @@ public class Alumno implements Serializable, Comparable<Alumno>{
 		this.ciclo = ciclo;
 		this.curso = curso;
 	}
+	
+	public Alumno() {
+		super();
+	}
+	
+	
 
 	public String getDni() {
 		return dni;
@@ -57,9 +63,7 @@ public class Alumno implements Serializable, Comparable<Alumno>{
 		this.nombre = nombre;
 	}
 
-	public Alumno() {
-		super();
-	}
+	
 
 	public String getNombre() {
 		return nombre;

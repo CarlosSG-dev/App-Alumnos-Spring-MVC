@@ -21,73 +21,58 @@ rel="stylesheet">
 
 <body>
 
-	<!-- <nav class="navbar navbar-default">
-
-		<a href="http://ieslluissimarro.org/" class="navbar-brand">Simarro</a>
-
-		<nav class="nav nav-pills flex-column flex-sm-row">
-			<a class="nav-link " href="/login.do">Home</a>
-			<a class="nav-link active" href="/alumno.do">Alumnos</a>
-			<a class="nav-link" href="https://aules.edu.gva.es/fp/course/view.php?id=60536">DWES</a>
-		</nav>
- 
- 
-		<ul class="nav navbar-nav navbar-right">
-			<li><a class="nav-link" href="/logout.do">Logout</a></li>
-		</ul>
-
-	</nav> -->
+	
 <%@ include file="../jspf/header.jspf" %>
 <%@ include file="../jspf/nav.jspf" %>
 
 	<div class="container">
 	<h1>Añadir nuevo alumno</h1>
-		<form action="add-alumno" method="POST">
-		<div class=row>
+	<div class=row>
 			<p style="color:red" class="errores">${errores}</p>
 		</div>
+		<mvc:form action="add-alumno" method="POST" modelAttribute="alumno">
+		
 			<div class="row">
 				<div class="col">
-					<label>Nombre</label> <input type="text" name="nombre" id="nombre"
-						required class="form-control" minleght="5">
+					<mvc:label path="nombre">Nombre</mvc:label>
+				<mvc:input class="form-control" type="text" path="nombre"
+					id="nombre" required="required"></mvc:input>
 				</div>
 				<div class="col">
-					<label>Dni</label> <input type="text" name="dni" id="dni"
-						class="form-control" required>
+					<mvc:label path="dni">Dni</mvc:label> <mvc:input path="dni" type="text" id="dni"
+						class="form-control" required="required"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col">
-					<label>Edad</label> <input type="number" name="edad" id="edad"
-						class="form-control" required>
+					<mvc:label path="edad">Edad</mvc:label> <mvc:input path="edad" type="number" id="edad"
+						class="form-control" required="required"/>
 				</div>
 				<div class="col">
-					<label>Ciclo</label> <input type="text" name="ciclo" id="ciclo"
-						class="form-control" required>
+					<mvc:label path="ciclo">Ciclo</mvc:label> <mvc:input path="ciclo" type="text" id="ciclo"
+						class="form-control" required="required"/>
 				</div>
 			</div>
 			
 			<div class="row">
 			<div class="col">
-				<label>Curso</label> <input type="number" name="curso" id="curso"
-					class="form-control" required min="0" max="4">
+				<mvc:label path="curso">Curso</mvc:label> <mvc:input path="curso" type="number"  id="curso"
+					class="form-control" required="required" min="0" max="4"/>
 					</div>
 			</div>
 			<br>
 			<div class="row">
 			<div class="col">
 				<input type="submit" value="Añadir" name="boton"
-		class="btn btn-success btn-block"></input>
+		class="btn btn-success btn-block"/>
 			</div>
 			</div>
 			
-		</form>
+		</mvc:form>
 	</div>
 
 <%@ include file="../jspf/footer.jspf" %>
-	<!-- <footer class="footer">
-		<p>DWES: Desarrollo Web en Entorno Servidor - profesor: joseramon.profesor@gmail.com</p>
-	</footer> -->
+	
 
 	<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
 	<script src="webjars/popper.js/1.16.0/umd/popper.min.js"></script>
