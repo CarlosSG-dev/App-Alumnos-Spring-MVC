@@ -22,7 +22,10 @@ public class LoginController {
 	}
 	
 	
-	
+	@RequestMapping(value="/carlos_primer_app_spring_mvc", method = RequestMethod.GET)
+	public String mostrarLog() {
+		return "login";
+	}
 	
 	
 

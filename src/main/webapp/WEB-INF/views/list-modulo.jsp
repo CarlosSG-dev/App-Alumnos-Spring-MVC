@@ -21,7 +21,7 @@ rel="stylesheet">
 
 <body>
 
-	<nav class="navbar navbar-default">
+	<!--  <nav class="navbar navbar-default">
 
 		<a href="http://ieslluissimarro.org/" class="navbar-brand">Simarro</a>
 
@@ -37,7 +37,10 @@ rel="stylesheet">
 			<li><a class="nav-link" href="/logout.do">Logout</a></li>
 		</ul>
 
-	</nav>
+	</nav> -->
+	
+	<%@ include file="../jspf/header.jspf" %>
+	<%@ include file="../jspf/nav.jspf" %>
 
 	<div class="container">
 	
@@ -59,9 +62,9 @@ rel="stylesheet">
 				<td>${modulo.getNombre()}</td>
 				<td>${modulo.getHoras()}</td>
 				<td>${modulo.getAbreviatura()}</td>
-			<td><a href="del-modulo.do?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td>
-			<td><a href="list-uds.do" class="btn btn-primary"/>Uds</td>
-			<td><a href="add-uds.do" class="btn btn-primary"/>Añadir Uds</td>
+			<td><a href="del-modulo?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td>
+			<td><a href="list-uds" class="btn btn-primary"/>Uds</td>
+			<td><a href="add-uds" class="btn btn-primary"/>Añadir Uds</td>
 			<%-- td><a href="del-modulo.do?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td> --%>
 			</tr>
 		</c:forEach>
@@ -71,28 +74,28 @@ rel="stylesheet">
 	<!-- <a href="/add-modulo.do" class="btn btn-success btn-block">Add Modulo</a> -->
 	
 	<h3>Añadir nuevo modulo</h3>
-		<form action="add-modulo.do" method="POST">
+		<mvc:form action="add-modulo" method="POST" modelAttribute="modulo">
 		<div class=row>
 			<p style="color:red" class="errores">${errores}</p>
 		</div>
 			<div class="row">
 				<div class="col">
-					<label>ID</label> <input type="number" name="id_nuevo" id="id_nuevo"
-						required class="form-control">
+					<mvc:label path="id">ID</mvc:label> <mvc:input path="id" type="number" id="id_nuevo"
+						required="required" class="form-control"/>
 				</div>
 				<div class="col">
-					<label>Nombre</label> <input type="text" name="nombre" id="nombre"
-						class="form-control" required>
+					<mvc:label path="nombre">Nombre</mvc:label> <mvc:input path="nombre" type="text"  id="nombre"
+						class="form-control" required="required"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col">
-					<label>Horas</label> <input type="number" name="horas" id="horas"
-						class="form-control" required>
+					<mvc:label path="horas">Horas</mvc:label> <mvc:input path="horas" type="number" id="horas"
+						class="form-control" required="required"/>
 				</div>
 				<div class="col">
-					<label>Abreviatura</label> <input type="text" name="abreviatura" id="abreviatura"
-						class="form-control" required>
+					<mvc:label path="abreviatura">Abreviatura</mvc:label> <mvc:input path="abreviatura" type="text"  id="abreviatura"
+						class="form-control" required="required"/>
 				</div>
 			</div>
 			
@@ -105,7 +108,7 @@ rel="stylesheet">
 			</div>
 			</div>
 			
-		</form>
+		</mvc:form>
 
 	<footer class="footer">
 		<p>DWES: Desarrollo Web en Entorno Servidor - profesor: joseramon.profesor@gmail.com</p>
