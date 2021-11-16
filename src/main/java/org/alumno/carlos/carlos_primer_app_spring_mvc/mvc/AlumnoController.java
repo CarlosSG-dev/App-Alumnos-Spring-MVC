@@ -3,15 +3,19 @@ package org.alumno.carlos.carlos_primer_app_spring_mvc.mvc;
 
 
 
+import javax.validation.Valid;
+
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Alumno;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Pagina;
 
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.AlumnoService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.PaginaService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDuplicadoException;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoModificadoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,15 +50,21 @@ public class AlumnoController {
 			return "add-alumno";
 		}
 		
-		@RequestMapping(value="add-alumno", method = RequestMethod.POST)
+		@RequestMapping(value="/add-alumno", method = RequestMethod.POST)
 		public String addAlumno(
 //				@RequestParam String dni,
 //				@RequestParam String nombre,
 //				@RequestParam String edad,
 //				@RequestParam String ciclo,
 //				@RequestParam String curso,
-				Alumno alumno,
-				ModelMap model) {
+				
+				@Valid Alumno alumno,
+				ModelMap model, BindingResult validacion) {
+			
+				if(validacion.hasErrors()) {
+					model.put("pagina", paginaService.getPagina());
+					return "add-alumno";
+				}
 			
 			String errores="";
 			paginaService.setPagina(new Pagina("Añadir alumno", "list-alumno"));
@@ -85,5 +95,40 @@ public class AlumnoController {
 			model.clear();
 			return "redirect:list-alumno";
 		}
+		
+		@RequestMapping(value = "update-alumno", method = RequestMethod.GET)
+		public String modificarAlumno(ModelMap model, @RequestParam String dni) {
+			
+			paginaService.setPagina(new Pagina("Modificar alumno", "list-alumno"));
+			model.put("pagina", paginaService.getPagina());
+			Alumno modificado = alumnoService.encontrarAlumnoPorDni(dni);
+			model.addAttribute("alumno", modificado);
+			
+			return "update-alumno";
+		}
+		
+		@RequestMapping(value = "/update-alumno", method = RequestMethod.POST)
+		public String procesaUpdateAlumnos(@Valid Alumno alumno, BindingResult validacion, ModelMap model) {
+			paginaService.setPagina(new Pagina("Modificar alumno", "list-alumno"));
+			model.put("pagina", paginaService.getPagina());
+			if (validacion.hasErrors())
+				return "update-alumno";
+
+			String error = "";
+			try {
+				alumnoService.modificaAlumno(alumno);
+				model.clear();
+				return "redirect:list-alumno";
+			} catch (NumberFormatException e) {
+				error = e.toString();
+			} catch (AlumnoModificadoException e) {
+				error = e.toString();
+			}
+			model.addAttribute("errores", error);
+			return "update-alumno";
+		}
+
+		
+		
 		
 }

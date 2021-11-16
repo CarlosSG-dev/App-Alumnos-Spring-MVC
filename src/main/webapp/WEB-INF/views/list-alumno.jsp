@@ -46,30 +46,13 @@ rel="stylesheet">
 
 <body>
 
-	<!--  <nav class="navbar navbar-default">
-
-		<a href="http://ieslluissimarro.org/" class="navbar-brand">Simarro</a>
-
-		<nav class="nav nav-pills flex-column flex-sm-row">
-			<a class="nav-link " href="/login.do">Home</a>
-			<a class="nav-link active" href="/list-alumno.do">Alumnos</a>
-			<a class="nav-link" href="/list-modulo.do">Modulos</a>
-			<a class="nav-link" href="https://aules.edu.gva.es/fp/course/view.php?id=60536">DWES</a>
-		</nav>
- 
- 
-		<ul class="nav navbar-nav navbar-right">
-			<li><a class="nav-link" href="/logout.do">Logout</a></li>
-		</ul>
-
-	</nav>
-	-->
 	
 	<%@ include file="../jspf/header.jspf" %>
 <%@ include file="../jspf/nav.jspf" %>
 
 	<div class="container">
 		<H1>Bienvenido ${nombre}</H1>
+		<H2>Listado de alumnos:</H2>
 		<table class="table table-striped">
 		<tr>
 		<th> <a class="nav-link" href="list-alumno?orden=dni">DNI</a></th>
@@ -78,7 +61,7 @@ rel="stylesheet">
 		<th><a class="nav-link" href="list-alumno?orden=edad">Edad</a></th>
 		<th><a class="nav-link" href="list-alumno?orden=ciclo">Ciclo</a></th>
 		<th><a class="nav-link" href="list-alumno?orden=curso">Curso</a></th>
-		<th>Accion</th>
+		<th>Acciones</th>
 		</tr>
 		<c:forEach items="${alumnos}" var="alumno">
 
@@ -88,7 +71,10 @@ rel="stylesheet">
 				<td>${alumno.getEdad()}</td>
 				<td>${alumno.getCiclo()}</td>
 				<td>${alumno.getCurso()}</td>
+				<td><a class="btn btn-success" href="update-alumno?dni=${alumno.getDni()}"><i class="fa fa-user-o" aria-hidden="true"></i>
+						Modificar</a></td>
 			<td><a href="del-alumno?dni=${alumno.getDni()}" class="btn btn-danger">Borrar</a></td> 
+			
 			</tr>
 		</c:forEach>
 

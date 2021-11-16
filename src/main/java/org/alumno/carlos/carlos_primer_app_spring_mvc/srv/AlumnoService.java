@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.*;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.mvc.*;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDuplicadoException;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoModificadoException;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.order.*;
 import org.springframework.stereotype.Service;
 
@@ -86,6 +87,30 @@ public class AlumnoService {
 //				return ;
 //			}
 //		}
+		
+	}
+	
+	
+	
+	public void modificaAlumno(Alumno alumnoMod) throws AlumnoModificadoException {
+		Alumno alumno = encontrarAlumnoPorDni(alumnoMod.getDni());
+		
+		if(null != alumno) {
+			
+			for (int i = 0; i < alumnos.size(); i++) {
+				if(alumnos.get(i).getDni().contentEquals(alumnoMod.getDni())) {
+					
+					delAlumno(alumnos.get(i).getDni());
+					alumnos.set(i, alumnoMod);
+					
+					
+					
+					break;
+				}
+			}
+		}else {
+			throw new AlumnoModificadoException(alumnoMod);
+		}
 		
 	}
 	

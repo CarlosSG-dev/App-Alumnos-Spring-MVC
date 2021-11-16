@@ -26,7 +26,7 @@ rel="stylesheet">
 <%@ include file="../jspf/nav.jspf" %>
 
 	<div class="container">
-	<h1>Añadir nuevo alumno</h1>
+	<h1>Modificar alumno</h1>
 	<div class=row>
 			<p style="color:red" class="errores">${errores}</p>
 		</div>
@@ -68,7 +68,7 @@ rel="stylesheet">
 			<br>
 			<div class="row">
 			<div class="col">
-				<input type="submit" value="Añadir" name="boton"
+				<input type="submit" value="Modificar" name="boton"
 		class="btn btn-success btn-block"/>
 			</div>
 			</div>
