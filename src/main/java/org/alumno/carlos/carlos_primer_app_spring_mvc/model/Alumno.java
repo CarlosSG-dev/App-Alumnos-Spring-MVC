@@ -1,14 +1,17 @@
 package org.alumno.carlos.carlos_primer_app_spring_mvc.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.alumno.carlos.carlos_primer_app_spring_mvc.model.interfaces.Modificable;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.utils.Ts;
 import org.hibernate.validator.constraints.Range;
 
-public class Alumno implements Serializable, Comparable<Alumno>{
+public class Alumno implements Serializable, Comparable<Alumno>, Modificable<Alumno>{
 	private static final long serialVersionUID = 1L;
 	@Size(min = 4, message = "El nombre debe tener almenos 4 carácteres")
 	private String nombre;
@@ -22,7 +25,8 @@ public class Alumno implements Serializable, Comparable<Alumno>{
 	@Digits(fraction = 0, integer = 1, message = "El curso debe ser 1 o 2")
 	@Range(min = 1, max = 2, message = "El curso debe ser 1 o 2")
 	private int curso;
-
+	private String user;
+	private Date ts;
 
 	public Alumno(String nombre, String dni, int edad, String ciclo, int curso) {
 		super();
@@ -85,6 +89,30 @@ public class Alumno implements Serializable, Comparable<Alumno>{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	@Override
+	public Date getTs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTs(Date ts) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUser(String user) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public String toString() {
@@ -120,6 +148,32 @@ public class Alumno implements Serializable, Comparable<Alumno>{
 	@Override
 	public int compareTo(Alumno a) {
 		return this.nombre.compareTo(a.getNombre());
+	}
+	
+	@Override
+	public boolean sePuedeModificarUtilizando(Alumno itemModificado) {
+		if(this.getUser()!=null && this.getTs()!= null) {
+			String usuarioActual = this.getUser();
+			String usuarioModificado = itemModificado.getUser();
+			
+			Date fechaActual = Ts.parseIso(Ts.formatIso(itemModificado.getTs()));
+			Date fechaModificada = Ts.parseIso(Ts.formatIso(itemModificado.getTs()));
+			
+			if(!usuarioActual.equals(usuarioModificado) || !fechaActual.equals(fechaModificada)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public String noSePuedeModificar() {
+		String msg="\r\n\t[ERROR]\r\n<br/>" +
+					"\t$item ha sido modificado por otro usuarioi.\r\n<br/>" +
+					"\tPara evitar la pérdida de información se impide guardar '$item'. \r\n<br/>" +
+					"\tÚltima modificación realizada por [" + this.getUser() +"] el [" + Ts.ts(this.getTs()) + "]\r\n<br/>";
+		
+		return msg.replace("$item", "Alumno");
 	}
 	
 	

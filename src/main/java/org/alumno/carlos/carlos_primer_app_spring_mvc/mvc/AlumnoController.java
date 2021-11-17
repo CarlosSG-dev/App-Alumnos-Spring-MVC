@@ -3,6 +3,9 @@ package org.alumno.carlos.carlos_primer_app_spring_mvc.mvc;
 
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Alumno;
@@ -13,9 +16,12 @@ import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.PaginaService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDuplicadoException;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoModificadoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +36,12 @@ public class AlumnoController {
 		
 		@Autowired
 		PaginaService paginaService;
+		
+		@InitBinder
+		protected void initBinder(WebDataBinder binder) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+		}
 		
 		@RequestMapping(value = "list-alumno", method = RequestMethod.GET)
 		public String listarAlumno(@RequestParam(required = false) String orden, ModelMap model) {
@@ -116,7 +128,7 @@ public class AlumnoController {
 
 			String error = "";
 			try {
-				alumnoService.modificaAlumno(alumno);
+				alumnoService.modificaAlumno(alumno, model.getAttribute("loginnickname").toString());
 				model.clear();
 				return "redirect:list-alumno";
 			} catch (NumberFormatException e) {

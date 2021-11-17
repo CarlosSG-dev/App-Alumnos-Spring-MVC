@@ -9,6 +9,7 @@ import org.alumno.carlos.carlos_primer_app_spring_mvc.model.*;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.mvc.*;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDuplicadoException;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoModificadoException;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.utils.Ts;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.order.*;
 import org.springframework.stereotype.Service;
 
@@ -92,20 +93,34 @@ public class AlumnoService {
 	
 	
 	
-	public void modificaAlumno(Alumno alumnoMod) throws AlumnoModificadoException {
+	public void modificaAlumno(Alumno alumnoMod, String usuarioModificacion) throws AlumnoModificadoException {
+		
 		Alumno alumno = encontrarAlumnoPorDni(alumnoMod.getDni());
 		
 		if(null != alumno) {
 			
+			if (alumno.sePuedeModificarUtilizando(alumnoMod)) {
 			for (int i = 0; i < alumnos.size(); i++) {
 				if(alumnos.get(i).getDni().contentEquals(alumnoMod.getDni())) {
 					
-					delAlumno(alumnos.get(i).getDni());
+					
+					
+					alumnoMod.setTs(Ts.today());
+					alumnoMod.setUser(usuarioModificacion);
 					alumnos.set(i, alumnoMod);
+//					delAlumno(alumnos.get(i).getDni());
+//					alumnos.set(i, alumnoMod);
+					
+//					alumnos.get(i).setNombre(alumnoMod.getNombre());
+//					alumnos.get(i).setDni(alumnoMod.getDni());
+//					alumnos.get(i).setEdad(alumnoMod.getEdad());
+//					alumnos.get(i).setCiclo(alumnoMod.getCiclo());
+//					alumnos.get(i).setCurso(alumnoMod.getCurso());
 					
 					
 					
 					break;
+				}
 				}
 			}
 		}else {

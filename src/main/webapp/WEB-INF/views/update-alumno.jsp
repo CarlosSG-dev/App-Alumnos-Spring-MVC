@@ -67,6 +67,8 @@ rel="stylesheet">
 			</div>
 			<br>
 			<div class="row">
+			<mvc:hidden path="user"/>
+			<mvc:hidden path="ts"/>
 			<div class="col">
 				<input type="submit" value="Modificar" name="boton"
 		class="btn btn-success btn-block"/>
