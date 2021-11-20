@@ -5,10 +5,13 @@ package org.alumno.carlos.carlos_primer_app_spring_mvc.mvc;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Alumno;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Modulo;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Pagina;
 
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.AlumnoService;
@@ -22,6 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -139,7 +143,31 @@ public class AlumnoController {
 			model.addAttribute("errores", error);
 			return "update-alumno";
 		}
+		
+		@ModelAttribute("interesadoEnLista")
+		public Object[] getInteresadoEnLista() {
+			return alumnoService.listaInteresadoEn().toArray();
+		}
+		
+		@ModelAttribute("generoLista")
+		public Object[] getGeneroLista() {
+			return alumnoService.listaGenero().toArray();
+		}
 
+		@ModelAttribute("horarioLista")
+		public Object[] getHorarioLista() {
+			return alumnoService.listaHorario().toArray();
+		}
+
+		@ModelAttribute("paisLista")
+		public HashMap<String, String> getPaisLista() {
+			return alumnoService.listaPais();
+		}
+
+		@ModelAttribute("modulosLista")
+		public List<Modulo> getModulosLista() {
+			return alumnoService.listaModulos();
+		}
 		
 		
 		

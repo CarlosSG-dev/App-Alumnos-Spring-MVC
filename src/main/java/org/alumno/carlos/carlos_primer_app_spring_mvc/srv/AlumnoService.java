@@ -2,6 +2,7 @@ package org.alumno.carlos.carlos_primer_app_spring_mvc.srv;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,17 +12,38 @@ import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDupl
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoModificadoException;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.utils.Ts;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.order.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class AlumnoService {
+	
+	@Autowired
+	ModuloService modulosService;
+	
+	
 	private static List<Alumno> alumnos = new ArrayList<Alumno>();
+	
+	private static List<String> interesadoEn = new ArrayList<String>();
+	private static List<String> generoLista = new ArrayList<String>();
+	private static List<String> horarioLista = new ArrayList<String>();
+	private static HashMap<String, String> paisLista = new HashMap<String, String>();
+	
 	
 	static {
 		alumnos.add(new Alumno("Jose","20011223A",12,"DAW",1));
 		alumnos.add(new Alumno("Pedro","20011223E",26,"DAW",2));
 		alumnos.add(new Alumno("Juan","20011223F",32,"DAM",2));
+		
+		interesadoEn.add("Backend");
+		interesadoEn.add("Frontend");
+		generoLista.add("Hombre");
+		generoLista.add("Mujer");
+		horarioLista.add("Mañana");
+		horarioLista.add("Tarde");
+		paisLista.put("ES", "España");
+		paisLista.put("IT", "Italia");
 	}
 	
 	public static List<Alumno> listaAlumnos(String orden) {
@@ -128,5 +150,28 @@ public class AlumnoService {
 		}
 		
 	}
+	
+	public List<String> listaInteresadoEn() {
+		return interesadoEn;
+	}
+	
+	public List<String> listaGenero() {
+		return generoLista;
+	}
+
+	public List<String> listaHorario() {
+		return horarioLista;
+	}
+	
+	public HashMap<String, String> listaPais() {
+		return paisLista;
+	}
+
+	public List<Modulo> listaModulos() {
+		return modulosService.listaModulos("");
+	}
+
+	
+	
 	
 }

@@ -1,6 +1,7 @@
 package org.alumno.carlos.carlos_primer_app_spring_mvc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.validation.constraints.Digits;
@@ -27,7 +28,17 @@ public class Alumno implements Serializable, Comparable<Alumno>, Modificable<Alu
 	private int curso;
 	private String user;
 	private Date ts;
-
+	
+	
+	private boolean erasmus;
+	private String[] interesadoEn;
+	private String [] lenguajeFavorito;
+	private String genero;
+	private String horario;
+	private String pais;
+	private ArrayList<Integer> matriculadoen;
+	private String hobbies;
+	
 	public Alumno(String nombre, String dni, int edad, String ciclo, int curso) {
 		super();
 		this.nombre = nombre;
@@ -37,9 +48,97 @@ public class Alumno implements Serializable, Comparable<Alumno>, Modificable<Alu
 		this.curso = curso;
 	}
 	
+	public Alumno(@Size(min = 4, message = "El nombre debe tener almenos 4 carácteres") String nombre,
+			@Pattern(regexp = "[0-9]{8}[A-Za-z]{1}", message = "El dni debe tener 8 números y una letra") String dni,
+			@Digits(fraction = 0, integer = 2, message = "La edad debe ser igual o mayor a 18 y menor o igual a 99") @Range(min = 18, max = 99, message = "La edad debe ser igual o mayor a 18 y menor o igual a 99") int edad,
+			@Size(min = 3, message = "El ciclo debe tener almenos 3 carácteres") String ciclo,
+			@Digits(fraction = 0, integer = 1, message = "El curso debe ser 1 o 2") @Range(min = 1, max = 2, message = "El curso debe ser 1 o 2") int curso,
+			boolean erasmus, String genero, String horario, String pais, ArrayList<Integer> matriculadoen,
+			String hobbies) {
+		super();
+		this.nombre = nombre;
+		this.dni = dni;
+		this.edad = edad;
+		this.ciclo = ciclo;
+		this.curso = curso;
+		this.erasmus = erasmus;
+		this.genero = genero;
+		this.horario = horario;
+		this.pais = pais;
+		this.matriculadoen = matriculadoen;
+		this.hobbies = hobbies;
+	}
+
 	public Alumno() {
 		super();
 	}
+	
+	
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public ArrayList<Integer> getMatriculadoen() {
+		return matriculadoen;
+	}
+
+	public void setMatriculadoen(ArrayList<Integer> matriculadoen) {
+		this.matriculadoen = matriculadoen;
+	}
+
+	public String getHobbies() {
+		return hobbies;
+	}
+
+	public void setHobbies(String hobbies) {
+		this.hobbies = hobbies;
+	}
+
+	public boolean isErasmus() {
+		return erasmus;
+	}
+
+	public void setErasmus(boolean erasmus) {
+		this.erasmus = erasmus;
+	}
+
+	public String[] getInteresadoEn() {
+		return interesadoEn;
+	}
+
+	public void setInteresadoEn(String[] interesadoEn) {
+		this.interesadoEn = interesadoEn;
+	}
+
+	public String[] getLenguajeFavorito() {
+		return lenguajeFavorito;
+	}
+
+	public void setLenguajeFavorito(String[] lenguajeFavorito) {
+		this.lenguajeFavorito = lenguajeFavorito;
+	}
+
 	
 	
 

@@ -65,6 +65,93 @@ rel="stylesheet">
 					<mvc:errors path="curso" cssClass="text-warning"></mvc:errors>
 					</div>
 			</div>
+			
+			<div class="row">
+			<div class="col">
+				<mvc:label path="interesadoEn">Alumno en Erasmus:</mvc:label>
+				<div class="input-group">
+					<div class="input-group-text">
+						<mvc:checkbox path="erasmus" id="erasmus" />
+					</div>
+					<mvc:label path="erasmus" class="form-control">Erasmus</mvc:label>
+				</div>
+				<mvc:errors path="edad" cssClass="text-warning"></mvc:errors>
+			</div>
+			<div class="col">
+				<mvc:label path="interesadoEn">Interesado en:</mvc:label>
+				<div class="input-group">
+					<mvc:checkboxes items="${interesadoEnLista}" path="interesadoEn" />
+				</div>
+			</div>
+			<div class="col">
+				<mvc:label path="interesadoEn">Lenguaje Favorito:</mvc:label>
+				<div class="input-group">
+					<div class="input-group-text">
+						<mvc:checkbox path="lenguajeFavorito" id="lenguajeFavorito"
+							value="Java"></mvc:checkbox>
+					</div>
+					<mvc:label path="lenguajeFavorito" class="form-control">Java</mvc:label>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col">
+				<mvc:label path="genero">Género:</mvc:label>
+				<div class="input-group">
+					<div class="input-group">
+					<ul style="list-style-type: none;">
+						<mvc:radiobuttons items="${generoLista}" path="genero" element="li"/></ul>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<mvc:label path="horario">Horario:</mvc:label>
+				<div class="input-group">
+					<div class="input-group">
+						<ul style="list-style-type: none;">
+							<mvc:select path="horario">
+								<mvc:options items="${horarioLista}" path="horario" />
+							</mvc:select>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<mvc:label path="pais">País:</mvc:label>
+				<div class="input-group">
+					<div class="input-group">
+						<ul style="list-style-type: none;">
+							<mvc:select path="pais">
+								<mvc:option value="-" label="Ninguno" />
+								<mvc:options items="${paisLista}" path="pais" />
+							</mvc:select>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<mvc:label path="matriculadoen">Matriculado En:</mvc:label>
+				<div class="input-group">
+					<div class="input-group">
+						<ul style="list-style-type: none;">
+							<mvc:select path="matriculadoen">
+								<mvc:options items="${modulosLista}" itemValue="id"
+									itemLabel="nombre" path="matriculadoen" />
+							</mvc:select>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<mvc:label path="hobbies">Hobbies:</mvc:label>
+				<div class="input-group">
+					<div class="input-group">
+						<mvc:textarea path="hobbies" rows="3" cols="70" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
 			<br>
 			<div class="row">
 			<mvc:hidden path="user"/>

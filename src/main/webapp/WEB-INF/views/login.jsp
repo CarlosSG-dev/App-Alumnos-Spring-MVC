@@ -56,17 +56,17 @@ rel="stylesheet">
         <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-        <form action="login" method="post">
+        <mvc:form action="login" method="post" modelAttribute="usuario">
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="text" name="nombre" id="form1Example13" class="form-control form-control-lg" />
-            <label class="form-label" for="form1Example13">Nombre</label>
+            <mvc:input path="nickname" type="text" id="form1Example13" class="form-control form-control-lg"></mvc:input>
+            <mvc:label path="nickname" class="form-label" for="form1Example13">Nickname</mvc:label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" name="password" id="form1Example23" class="form-control form-control-lg" />
-            <label class="form-label" for="form1Example23">Password</label>
+            <mvc:password path="password" class="form-control form-control-lg"></mvc:password>
+            <mvc:label path="password" class="form-label" for="form1Example23">Password</mvc:label>
           </div>
 
           <div class="d-flex justify-content-around align-items-center mb-4">
@@ -103,7 +103,7 @@ rel="stylesheet">
   </div>
 </section>
 		
-	</form>
+	</mvc:form>
 	
 
 <%@ include file="../jspf/footer.jspf" %>
