@@ -11,6 +11,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Alumno;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.model.FiltroAlumno;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Modulo;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Pagina;
 
@@ -49,7 +50,8 @@ public class AlumnoController {
 		
 		@RequestMapping(value = "list-alumno", method = RequestMethod.GET)
 		public String listarAlumno(@RequestParam(required = false) String orden, ModelMap model) {
-			model.put("alumnos", alumnoService.listaAlumnos(orden == null ? "" : orden));	
+			model.put("alumnos", alumnoService.listaAlumnos(orden == null ? "" : orden));
+			model.addAttribute("filtroAlumno", new FiltroAlumno("", ""));
 			paginaService.setPagina(new Pagina("Lista de alumnos", "list-alumno"));
 			model.put("pagina", paginaService.getPagina());
 			
@@ -167,6 +169,22 @@ public class AlumnoController {
 		@ModelAttribute("modulosLista")
 		public List<Modulo> getModulosLista() {
 			return alumnoService.listaModulos();
+		}
+		
+		@ModelAttribute("searchLista")
+		public HashMap<String, String> getSearchLista() {
+			return alumnoService.listaSearch();
+		}
+		
+		@RequestMapping(value = "/filter-alumno", method = RequestMethod.POST)
+		public String filterAlumnoPost(@Valid FiltroAlumno falumno, BindingResult validacion, ModelMap model) {
+			paginaService.setPagina(new Pagina("Lista alumnos", "list-alumno"));
+			model.put("pagina", paginaService.getPagina());
+			if (validacion.hasErrors())
+				return "list-alumno";
+
+			model.put("alumnos", alumnoService.filter(falumno));
+			return "list-alumno";
 		}
 		
 		

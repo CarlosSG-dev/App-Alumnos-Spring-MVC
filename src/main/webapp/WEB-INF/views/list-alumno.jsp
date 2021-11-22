@@ -53,6 +53,32 @@ rel="stylesheet">
 	<div class="container">
 		<H1>Bienvenido ${nombre}</H1>
 		<H2>Listado de alumnos:</H2>
+		
+		<mvc:form action="/carlos_primer_app_spring_mvc/filter-alumno" method="post"
+		modelAttribute="filtroAlumno">
+		<div class="row">
+			<div class="col">
+				<mvc:label path="type">Filtrar por:</mvc:label>
+				<div class="input-group">
+					<div class="input-group">
+						<mvc:select class="form-control" path="type">
+							<mvc:options items="${searchLista}" path="type" />
+						</mvc:select>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<mvc:label path="value">Como:</mvc:label>
+				<div class="form-group">
+					<mvc:input path="value" class="form-control w-75 d-inline-block"
+						type="text" id="value" placeholder="Search"></mvc:input>
+					<input type="submit" class="btn btn-success" value="Filtrar"></input>
+				</div>
+			</div>
+		</div>
+	</mvc:form>
+		
+		
 		<table class="table table-striped">
 		<tr>
 		<th> <a class="nav-link" href="list-alumno?orden=dni">DNI</a></th>

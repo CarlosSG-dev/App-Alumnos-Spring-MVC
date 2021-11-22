@@ -29,6 +29,7 @@ public class AlumnoService {
 	private static List<String> generoLista = new ArrayList<String>();
 	private static List<String> horarioLista = new ArrayList<String>();
 	private static HashMap<String, String> paisLista = new HashMap<String, String>();
+	private static HashMap<String, String> searchLista = new HashMap<String, String>();
 	
 	
 	static {
@@ -44,6 +45,12 @@ public class AlumnoService {
 		horarioLista.add("Tarde");
 		paisLista.put("ES", "España");
 		paisLista.put("IT", "Italia");
+		searchLista.put("dni", "dni");
+		searchLista.put("edad", "edad");
+		searchLista.put("pais", "pais");
+		searchLista.put("horario", "horario");
+		searchLista.put("curso", "curso");
+		searchLista.put("ciclo", "ciclo");
 	}
 	
 	public static List<Alumno> listaAlumnos(String orden) {
@@ -70,6 +77,31 @@ public class AlumnoService {
 		}
 		return alumnos;
 	}
+	
+	public List<Alumno> filter(FiltroAlumno falumno) {
+		try {
+			switch (falumno.getType()) {
+			case "dni":
+				return falumno.filterByDni(falumno.getValue(), AlumnoService.alumnos);
+			case "edad":
+				return falumno.filterByEdad(Integer.parseInt(falumno.getValue()), AlumnoService.alumnos);
+			case "pais":
+				return falumno.filterByPais(falumno.getValue(), AlumnoService.alumnos);
+			case "horario":
+				return falumno.filterByHorario(falumno.getValue(), AlumnoService.alumnos);
+			case "curso":
+				return falumno.filterByCurso(Integer.parseInt(falumno.getValue()), AlumnoService.alumnos);
+			case "ciclo":
+				return falumno.filterByCiclo(falumno.getValue(), AlumnoService.alumnos);
+			}
+		} catch (Exception e) {
+			return AlumnoService.alumnos;
+		}
+		return AlumnoService.alumnos;
+	}
+	
+	
+	
 	public static boolean addAlumno(Alumno alumno) throws Exception {
 		if(existeAlumno(alumno)) {
 			Alumno existe = encontrarAlumnoPorDni(alumno.getDni());
@@ -169,6 +201,10 @@ public class AlumnoService {
 
 	public List<Modulo> listaModulos() {
 		return modulosService.listaModulos("");
+	}
+	
+	public HashMap<String, String> listaSearch() {
+		return searchLista;
 	}
 
 	
