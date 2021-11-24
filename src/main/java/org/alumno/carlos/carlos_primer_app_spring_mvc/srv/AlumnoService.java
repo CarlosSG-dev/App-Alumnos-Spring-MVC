@@ -30,6 +30,7 @@ public class AlumnoService {
 	private static List<String> horarioLista = new ArrayList<String>();
 	private static HashMap<String, String> paisLista = new HashMap<String, String>();
 	private static HashMap<String, String> searchLista = new HashMap<String, String>();
+	private static List<String> opcionesTipoDoc = new ArrayList<String>();
 	
 	
 	static {
@@ -45,12 +46,15 @@ public class AlumnoService {
 		horarioLista.add("Tarde");
 		paisLista.put("ES", "España");
 		paisLista.put("IT", "Italia");
-		searchLista.put("dni", "dni");
-		searchLista.put("edad", "edad");
-		searchLista.put("pais", "pais");
-		searchLista.put("horario", "horario");
-		searchLista.put("curso", "curso");
-		searchLista.put("ciclo", "ciclo");
+		searchLista.put("dni", "Dni");
+		searchLista.put("edad", "Edad");
+		searchLista.put("pais", "Pais");
+		searchLista.put("horario", "Horario");
+		searchLista.put("curso", "Curso");
+		searchLista.put("ciclo", "Ciclo");
+		opcionesTipoDoc.add("Justificante");
+		opcionesTipoDoc.add("Certificado");
+		opcionesTipoDoc.add("Solicitud");
 	}
 	
 	public static List<Alumno> listaAlumnos(String orden) {
@@ -158,10 +162,13 @@ public class AlumnoService {
 				if(alumnos.get(i).getDni().contentEquals(alumnoMod.getDni())) {
 					
 					
+					alumnos.remove(alumno);
 					
+					
+				
 					alumnoMod.setTs(Ts.today());
 					alumnoMod.setUser(usuarioModificacion);
-					alumnos.set(i, alumnoMod);
+					alumnos.add(alumnoMod);
 //					delAlumno(alumnos.get(i).getDni());
 //					alumnos.set(i, alumnoMod);
 					
@@ -180,6 +187,29 @@ public class AlumnoService {
 		}else {
 			throw new AlumnoModificadoException(alumnoMod);
 		}
+		
+	}
+	
+	public void addDocAlumno(DocAlumno nuevo) {
+		Optional<Alumno> alumno = alumnos.stream().filter(x -> x.getDni().equals(nuevo.getDni())).findFirst();
+		if (alumno.isPresent())
+			alumno.get().getDocsAlumno().add(nuevo);
+	}
+	
+	public int siguienteDoc(String dni) {
+		int idFinal=0;
+		
+		if(encontrarAlumnoPorDni(dni).getDocsAlumno().size() == 0)
+			return ++idFinal;
+		
+		for(DocAlumno docAlumnoEdit : encontrarAlumnoPorDni(dni).getDocsAlumno()) {
+			idFinal = docAlumnoEdit.getId();
+		}
+		
+		return ++idFinal;
+		
+		
+		
 		
 	}
 	
@@ -205,6 +235,10 @@ public class AlumnoService {
 	
 	public HashMap<String, String> listaSearch() {
 		return searchLista;
+	}
+	
+	public List<String> opcionesTipoDoc() {
+		return opcionesTipoDoc;
 	}
 
 	

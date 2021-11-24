@@ -88,7 +88,7 @@ rel="stylesheet">
 		<th><a class="nav-link" href="list-alumno?orden=ciclo">Ciclo</a></th>
 		<th><a class="nav-link" href="list-alumno?orden=curso">Curso</a></th>
 		<th><a class="nav-link" href="list-alumno?orden=erasmus">Erasmus</a></th>
-		<th>Acciones</th>
+		<th class="">Acciones</th>
 		</tr>
 		<c:forEach items="${alumnos}" var="alumno">
 
@@ -98,15 +98,17 @@ rel="stylesheet">
 				<td>${alumno.getEdad()}</td>
 				<td>${alumno.getCiclo()}</td>
 				<td>${alumno.getCurso()}</td>
+				<div class="row">
 				<td><input type="checkbox" readonly
 						<c:if test="${alumno.isErasmus()}">checked</c:if>></td>
 				<td><a class="btn btn-success" href="update-alumno?dni=${alumno.getDni()}"><i class="fa fa-user-o" aria-hidden="true"></i>
 						Modificar</a></td>
 			<td><a href="del-alumno?dni=${alumno.getDni()}" class="btn btn-danger">Borrar</a></td> 
-			
+			<td><a href="docs-alumno?dni=${alumno.getDni()}" class="btn btn-warning">Documentacion</a></td> 
+			</div>
 			</tr>
 		</c:forEach>
-
+	
 	</table>
 	
 	<a href="add-alumno" class="btn btn-success btn-block">Add alumno</a>

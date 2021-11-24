@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("nombre")
+@SessionAttributes({"nombre", "loginName","loginnickname", "usuario"})
 public class LoginController {
 	
 	@Autowired
@@ -69,6 +69,9 @@ public class LoginController {
 			
 		System.out.println(loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
 		model.put("nombre", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
+		
+		model.put("loginnickname", loginService.encontrarUsuarioPorNickName(usuario.getNickname()));
+		model.put("loginname", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
 			return "redirect:list-alumno";
 		
 		

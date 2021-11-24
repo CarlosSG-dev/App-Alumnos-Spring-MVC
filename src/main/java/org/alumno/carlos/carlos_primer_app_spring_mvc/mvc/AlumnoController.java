@@ -11,10 +11,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Alumno;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.model.DocAlumno;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.FiltroAlumno;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Modulo;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Pagina;
-
+import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Usuario;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.AlumnoService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.PaginaService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDuplicadoException;
@@ -176,6 +177,13 @@ public class AlumnoController {
 			return alumnoService.listaSearch();
 		}
 		
+		@ModelAttribute("opcionesTipoDoc")
+		public List<String> getTipoDoc() {
+			return alumnoService.opcionesTipoDoc();
+		}
+		
+		
+		
 		@RequestMapping(value = "/filter-alumno", method = RequestMethod.POST)
 		public String filterAlumnoPost(@Valid FiltroAlumno falumno, BindingResult validacion, ModelMap model) {
 			paginaService.setPagina(new Pagina("Lista alumnos", "list-alumno"));
@@ -185,6 +193,72 @@ public class AlumnoController {
 
 			model.put("alumnos", alumnoService.filter(falumno));
 			return "list-alumno";
+		}
+		
+		
+		@RequestMapping(value="/docs-alumno", method = RequestMethod.GET)
+		public String getDocsAlumnos(ModelMap model, @RequestParam String dni) {
+			paginaService.setPagina(new Pagina("Documentacion", "docs-alumno"));
+			model.put("pagina", paginaService.getPagina());
+			
+			model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(dni));
+			model.addAttribute("docAlumno", new DocAlumno(alumnoService.siguienteDoc(dni)));
+			
+			//model.addAttribute("docAlumno", new DocAlumno(alumnoService.siguienteDoc(dni)));
+			
+			model.addAttribute("pagina", paginaService.getPagina());
+			
+			
+			return "docs-alumno";
+		}
+		
+		@RequestMapping(value = "add-doc-alumno", method = RequestMethod.GET)
+		public String mostrarDocAlumno(ModelMap model, @Valid DocAlumno docAlumno) {
+			paginaService.setPagina(new Pagina("Añadir documentacion alumno", "doc-alumno"));
+			model.put("pagina", paginaService.getPagina());
+			model.addAttribute("docAlumno", docAlumno);
+			model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(docAlumno.getDni()));
+			return "add-doc-alumno";
+		}
+		
+		@RequestMapping(value="/add-doc-alumno", method = RequestMethod.POST)
+		public String addDocAlumno(ModelMap model, @Valid DocAlumno docAlumno, BindingResult validacion){
+			paginaService.setPagina(new Pagina("Documentacion", "docs-alumno"));
+			model.put("pagina", paginaService.getPagina());
+			
+			if(validacion.hasErrors()) {
+				model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(docAlumno.getDni()));
+				return "docs-alumno";
+			}
+			
+			String dni = (String) docAlumno.getDni();
+			Alumno alumno = alumnoService.encontrarAlumnoPorDni(dni);
+			try {
+				if(alumno == null) {
+					throw new Exception("Alumno desconocido");
+				}
+				
+				if(model.getAttribute("user") == null) {
+					throw new Exception("Para añadir documentación debe estar logeado");
+				}
+				
+				alumnoService.addDocAlumno(docAlumno);
+				Usuario userActive = (Usuario) model.getAttribute("usuario");
+				
+				alumnoService.modificaAlumno(alumno, userActive.getNickname());
+				
+				model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(docAlumno.getDni()));
+				
+				model.addAttribute("docAlumno", new DocAlumno(alumnoService.siguienteDoc(dni)));
+				
+				return "docs-alumno";
+				
+			}catch(Exception e) {
+				model.addAttribute(alumnoService.encontrarAlumnoPorDni(alumno.getDni()));
+				
+				model.addAttribute("errores", e.getMessage());
+			}
+			return "docs-alumno";
 		}
 		
 		

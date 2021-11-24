@@ -38,6 +38,7 @@ public class Alumno implements Serializable, Comparable<Alumno>, Modificable<Alu
 	private String pais;
 	private ArrayList<Integer> matriculadoen;
 	private String hobbies;
+	private ArrayList<DocAlumno>docsAlumno;
 	
 	public Alumno(String nombre, String dni, int edad, String ciclo, int curso) {
 		super();
@@ -54,7 +55,8 @@ public class Alumno implements Serializable, Comparable<Alumno>, Modificable<Alu
 			@Size(min = 3, message = "El ciclo debe tener almenos 3 carácteres") String ciclo,
 			@Digits(fraction = 0, integer = 1, message = "El curso debe ser 1 o 2") @Range(min = 1, max = 2, message = "El curso debe ser 1 o 2") int curso,
 			boolean erasmus, String genero, String horario, String pais, ArrayList<Integer> matriculadoen,
-			String hobbies) {
+			String hobbies,
+			ArrayList<DocAlumno> docsAlumno) {
 		super();
 		this.nombre = nombre;
 		this.dni = dni;
@@ -67,6 +69,15 @@ public class Alumno implements Serializable, Comparable<Alumno>, Modificable<Alu
 		this.pais = pais;
 		this.matriculadoen = matriculadoen;
 		this.hobbies = hobbies;
+		this.docsAlumno = docsAlumno;
+	}
+
+	public ArrayList<DocAlumno> getDocsAlumno() {
+		return docsAlumno;
+	}
+
+	public void setDocsAlumno(ArrayList<DocAlumno> docsAlumno) {
+		this.docsAlumno = docsAlumno;
 	}
 
 	public Alumno() {
