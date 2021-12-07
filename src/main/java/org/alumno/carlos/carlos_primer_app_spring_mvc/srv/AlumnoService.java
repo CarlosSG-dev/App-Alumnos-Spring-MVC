@@ -199,7 +199,7 @@ public class AlumnoService {
 	public int siguienteDoc(String dni) {
 		int idFinal=0;
 		
-		if(encontrarAlumnoPorDni(dni).getDocsAlumno().size() == 0)
+		if(encontrarAlumnoPorDni(dni).getDocsAlumno() == null)
 			return ++idFinal;
 		
 		for(DocAlumno docAlumnoEdit : encontrarAlumnoPorDni(dni).getDocsAlumno()) {

@@ -68,12 +68,15 @@ public class LoginController {
 		}
 		
 			
-		System.out.println(loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
+		
 		model.put("nombre", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
 		model.addAttribute("usuario", usuario);
 		
-		model.put("loginnickname", loginService.encontrarUsuarioPorNickName(usuario.getNickname()));
-		model.put("loginname", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
+		//model.put("loginNickName", loginService.encontrarUsuarioPorNickName(usuario.getNickname()));
+		//model.put("loginName", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
+		
+		model.addAttribute("loginNickName", loginService.encontrarUsuarioPorNickName(usuario.getNickname()));
+		model.addAttribute("loginName", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
 			return "redirect:list-alumno";
 		
 		
