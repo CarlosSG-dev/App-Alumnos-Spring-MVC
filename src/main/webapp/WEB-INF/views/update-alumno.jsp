@@ -30,7 +30,7 @@ rel="stylesheet">
 	<div class=row>
 			<p style="color:red" class="errores">${errores}</p>
 		</div>
-		<mvc:form action="add-alumno" method="POST" modelAttribute="alumno">
+		<mvc:form action="update-alumno" method="POST" modelAttribute="alumno">
 		<mvc:errors path="*" cssClass="text-warning"></mvc:errors>
 			<div class="row">
 				<div class="col">

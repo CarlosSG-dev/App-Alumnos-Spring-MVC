@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"nombre", "loginName","loginnickname", "usuario"})
+@SessionAttributes({"nombre", "loginName","loginNickName", "usuario"})
 public class LoginController {
 	
 	@Autowired
@@ -28,7 +28,7 @@ public class LoginController {
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String mostrarMain(ModelMap model) {
 		
-		model.addAttribute("usuario", new Usuario("", "", ""));
+		model.addAttribute("usuario", new Usuario("", "", "",""));
 		return "login";
 	}
 	
@@ -43,7 +43,8 @@ public class LoginController {
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String mostrarLogin(ModelMap model) {
 		System.out.println("He entrado en login cuando no debia");
-		model.addAttribute("usuario", new Usuario("", "", ""));
+		model.addAttribute("usuario", new Usuario("", "", "",""));
+		
 		return "login";
 	}
 	
@@ -52,7 +53,7 @@ public class LoginController {
 		
 		paginaService.setPagina(new Pagina("Home", "login"));
 		model.put("pagina", paginaService.getPagina());
-		model.addAttribute("usuario", new Usuario("", "", ""));
+		model.addAttribute("usuario", new Usuario("", "", "",""));
 		
 		if (validacion.hasErrors()) 
 			return "login";
@@ -69,6 +70,7 @@ public class LoginController {
 			
 		System.out.println(loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
 		model.put("nombre", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
+		model.addAttribute("usuario", usuario);
 		
 		model.put("loginnickname", loginService.encontrarUsuarioPorNickName(usuario.getNickname()));
 		model.put("loginname", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());

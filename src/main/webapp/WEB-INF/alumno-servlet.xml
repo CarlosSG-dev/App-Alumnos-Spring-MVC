@@ -23,6 +23,12 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 			<value>.jsp</value>
 		</property>
 	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		</bean>
 	
 	<mvc:resources location="/webjars/" mapping="/webjars/**"/>
+	<mvc:resources mapping="/imagenes/**" location="/resources/imagenes/"/>
+	<!--  <mvc:resources location="/resources/imagenUsuario" mapping="/AlumnosWebApp_DynamicFiles/**"></mvc:resources>
+	-->
 </beans>

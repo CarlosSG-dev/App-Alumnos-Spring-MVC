@@ -15,7 +15,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${alumnos}" var="alumno">
+			
 				<tr>
 					<td>${alumno.getDni()}</td>
 					<td>${alumno.getNombre()}</td>
@@ -23,7 +23,7 @@
 					<td>${alumno.getCiclo()}</td>
 					<td>${alumno.getCurso()}</td>
 				</tr>
-			</c:forEach>
+			
 		</tbody>
 	</table>
 	
@@ -50,6 +50,6 @@
 	
 
 
-	<a class="btn btn-success btn-block" href="add-doc-alumno">Añadir documentación alumno</a>
+	<a class="btn btn-success btn-block" href="add-doc-alumno?dni=${alumno.getDni()}">Añadir documentación alumno</a>
 </div>
 <%@ include file="../jspf/footer.jspf"%>

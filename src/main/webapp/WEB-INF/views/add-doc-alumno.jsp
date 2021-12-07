@@ -8,7 +8,7 @@
 <mvc:form action="add-doc-alumno" method="post" modelAttribute="docAlumno">
 		
 		<mvc:errors path="*" cssClass="text-warning"></mvc:errors>
-		<input name="dni" type="hidden" value="${alumno.getDni()} }">
+		<mvc:hidden name="dni" path="dni" value="${docAlumno.getDni()}"></mvc:hidden>
 		<div class="form-row">
 			<div class="col">
 				<mvc:label path="id">Id:</mvc:label>
@@ -30,6 +30,7 @@
 				<input type="submit" id="submit" class="btn btn-success" value="Añadir">
 			</div>
 			</div>
+			
 	</mvc:form>
 </div>
 <%@ include file="../jspf/footer.jspf"%>

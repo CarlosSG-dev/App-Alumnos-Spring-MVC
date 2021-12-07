@@ -135,8 +135,8 @@ public class AlumnoController {
 
 			String error = "";
 			try {
-				alumnoService.modificaAlumno(alumno, model.getAttribute("loginnickname").toString());
-				model.clear();
+				alumnoService.modificaAlumno(alumno, model.getAttribute("nombre").toString());
+				//model.clear();
 				return "redirect:list-alumno";
 			} catch (NumberFormatException e) {
 				error = e.toString();
@@ -204,7 +204,7 @@ public class AlumnoController {
 			model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(dni));
 			model.addAttribute("docAlumno", new DocAlumno(alumnoService.siguienteDoc(dni)));
 			
-			//model.addAttribute("docAlumno", new DocAlumno(alumnoService.siguienteDoc(dni)));
+			model.addAttribute("docAlumno", new DocAlumno(alumnoService.siguienteDoc(dni)));
 			
 			model.addAttribute("pagina", paginaService.getPagina());
 			
@@ -213,7 +213,9 @@ public class AlumnoController {
 		}
 		
 		@RequestMapping(value = "add-doc-alumno", method = RequestMethod.GET)
-		public String mostrarDocAlumno(ModelMap model, @Valid DocAlumno docAlumno) {
+		public String mostrarDocAlumno(ModelMap model, String dni) {
+			DocAlumno docAlumno = new DocAlumno();
+			docAlumno.setDni(dni);
 			paginaService.setPagina(new Pagina("Añadir documentacion alumno", "doc-alumno"));
 			model.put("pagina", paginaService.getPagina());
 			model.addAttribute("docAlumno", docAlumno);
@@ -228,37 +230,38 @@ public class AlumnoController {
 			
 			if(validacion.hasErrors()) {
 				model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(docAlumno.getDni()));
-				return "docs-alumno";
+				return "redirect:docs-alumno?dni=" +docAlumno.getDni();
 			}
 			
 			String dni = (String) docAlumno.getDni();
 			Alumno alumno = alumnoService.encontrarAlumnoPorDni(dni);
+			Usuario userActive = (Usuario) model.getAttribute("usuario");
 			try {
 				if(alumno == null) {
 					throw new Exception("Alumno desconocido");
 				}
 				
-				if(model.getAttribute("user") == null) {
-					throw new Exception("Para añadir documentación debe estar logeado");
-				}
+//				if(userActive == null) {
+//					throw new Exception("Para añadir documentación debe estar logeado");
+//				}
 				
 				alumnoService.addDocAlumno(docAlumno);
-				Usuario userActive = (Usuario) model.getAttribute("usuario");
+				
 				
 				alumnoService.modificaAlumno(alumno, userActive.getNickname());
 				
 				model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(docAlumno.getDni()));
 				
 				model.addAttribute("docAlumno", new DocAlumno(alumnoService.siguienteDoc(dni)));
-				
-				return "docs-alumno";
+				model.clear();
+				return "redirect:docs-alumno?dni=" +docAlumno.getDni();
 				
 			}catch(Exception e) {
-				model.addAttribute(alumnoService.encontrarAlumnoPorDni(alumno.getDni()));
+				//model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(alumno.getDni()));
 				
 				model.addAttribute("errores", e.getMessage());
 			}
-			return "docs-alumno";
+			return "redirect:docs-alumno?dni=" +docAlumno.getDni();
 		}
 		
 		

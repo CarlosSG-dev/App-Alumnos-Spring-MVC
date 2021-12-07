@@ -13,8 +13,8 @@ public class LoginService {
 	private static List<Usuario> usuarios = new ArrayList<Usuario>();
 	
 	static {
-		usuarios.add(new Usuario("joseramon", "joseramon", "miPassword@1"));
-		usuarios.add(new Usuario("carlos", "carlos", "1234"));
+		usuarios.add(new Usuario("joseramon", "joseramon", "miPassword@1","joserra.jpg"));
+		usuarios.add(new Usuario("carlos", "carlos", "1234","carlos.jpg"));
 	}
 	
 

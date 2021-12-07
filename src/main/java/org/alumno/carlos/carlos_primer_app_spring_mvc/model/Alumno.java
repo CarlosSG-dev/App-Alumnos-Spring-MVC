@@ -47,8 +47,8 @@ public class Alumno implements Serializable, Comparable<Alumno>, Modificable<Alu
 		this.edad = edad;
 		this.ciclo = ciclo;
 		this.curso = curso;
+		this.docsAlumno = new ArrayList<>();
 	}
-	
 	public Alumno(@Size(min = 4, message = "El nombre debe tener almenos 4 carácteres") String nombre,
 			@Pattern(regexp = "[0-9]{8}[A-Za-z]{1}", message = "El dni debe tener 8 números y una letra") String dni,
 			@Digits(fraction = 0, integer = 2, message = "La edad debe ser igual o mayor a 18 y menor o igual a 99") @Range(min = 18, max = 99, message = "La edad debe ser igual o mayor a 18 y menor o igual a 99") int edad,
