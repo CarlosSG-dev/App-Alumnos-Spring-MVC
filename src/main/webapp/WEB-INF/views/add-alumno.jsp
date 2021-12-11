@@ -34,25 +34,25 @@ rel="stylesheet">
 		<mvc:errors path="*" cssClass="text-warning"></mvc:errors>
 			<div class="row">
 				<div class="col">
-					<mvc:label path="nombre">Nombre</mvc:label>
+					<mvc:label path="nombre"><spring:message code="etiqueta.nombre" /></mvc:label>
 				<mvc:input class="form-control" type="text" path="nombre"
 					id="nombre" required="required"></mvc:input>
 					<mvc:errors path="nombre" cssClass="text-warning"></mvc:errors>
 				</div>
 				<div class="col">
-					<mvc:label path="dni">Dni</mvc:label> <mvc:input path="dni" type="text" id="dni"
+					<mvc:label path="dni"><spring:message code="etiqueta.dni" /></mvc:label> <mvc:input path="dni" type="text" id="dni"
 						class="form-control" required="required"/>
 						<mvc:errors path="dni" cssClass="text-warning"></mvc:errors>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col">
-					<mvc:label path="edad">Edad</mvc:label> <mvc:input path="edad" type="number" id="edad"
+					<mvc:label path="edad"><spring:message code="etiqueta.edad" /></mvc:label> <mvc:input path="edad" type="number" id="edad"
 						class="form-control" required="required"/>
 						<mvc:errors path="edad" cssClass="text-warning"></mvc:errors>
 				</div>
 				<div class="col">
-					<mvc:label path="ciclo">Ciclo</mvc:label> <mvc:input path="ciclo" type="text" id="ciclo"
+					<mvc:label path="ciclo"><spring:message code="etiqueta.ciclo" /></mvc:label> <mvc:input path="ciclo" type="text" id="ciclo"
 						class="form-control" required="required"/>
 						<mvc:errors path="ciclo" cssClass="text-warning"></mvc:errors>
 				</div>
@@ -60,7 +60,7 @@ rel="stylesheet">
 			
 			<div class="row">
 			<div class="col">
-				<mvc:label path="curso">Curso</mvc:label> <mvc:input path="curso" type="number"  id="curso"
+				<mvc:label path="curso"><spring:message code="etiqueta.curso" /></mvc:label> <mvc:input path="curso" type="number"  id="curso"
 					class="form-control" required="required" min="0" max="4"/>
 					<mvc:errors path="curso" cssClass="text-warning"></mvc:errors>
 					</div>
@@ -69,7 +69,7 @@ rel="stylesheet">
 			
 			<div class="row mt-3">
 			<div class="col">
-				<mvc:label path="interesadoEn">Alumno en Erasmus:</mvc:label>
+				<mvc:label path="interesadoEn"><spring:message code="etiqueta.erasmus" /></mvc:label>
 				<div class="input-group">
 					<div class="input-group-text">
 						<mvc:checkbox path="erasmus" id="erasmus" />
@@ -79,13 +79,13 @@ rel="stylesheet">
 				<mvc:errors path="erasmus" cssClass="text-warning"></mvc:errors>
 			</div>
 			<div class="col">
-				<mvc:label path="interesadoEn">Interesado en:</mvc:label>
+				<mvc:label path="interesadoEn"><spring:message code="etiqueta.interesado" /></mvc:label>
 				<div class="input-group">
 					<mvc:checkboxes items="${interesadoEnLista}" path="interesadoEn" />
 				</div>
 			</div>
 			<div class="col">
-				<mvc:label path="interesadoEn">Lenguaje Favorito:</mvc:label>
+				<mvc:label path="interesadoEn"><spring:message code="etiqueta.lenguaje.favorito" /></mvc:label>
 				<div class="input-group">
 					<div class="input-group-text">
 						<mvc:checkbox path="lenguajeFavorito" id="lenguajeFavorito"
@@ -98,7 +98,7 @@ rel="stylesheet">
 		
 		<div class="row mt-3">
 			<div class="col">
-				<mvc:label path="genero">Género:</mvc:label>
+				<mvc:label path="genero"><spring:message code="etiqueta.genero" /></mvc:label>
 				<div class="input-group">
 					<div class="input-group">
 						<ul style="list-style-type: none;">
@@ -110,7 +110,7 @@ rel="stylesheet">
 			</div>
 
 			<div class="col">
-				<mvc:label path="horario">Horario:</mvc:label>
+				<mvc:label path="horario"><spring:message code="etiqueta.horas" /></mvc:label>
 				<div class="input-group">
 					<div class="input-group">
 						<ul style="list-style-type: none;">
@@ -122,7 +122,7 @@ rel="stylesheet">
 				</div>
 			</div>
 			<div class="col">
-				<mvc:label path="pais">País:</mvc:label>
+				<mvc:label path="pais"><spring:message code="etiqueta.pais" /></mvc:label>
 				<div class="input-group">
 					<div class="input-group">
 						<ul style="list-style-type: none;">
@@ -135,7 +135,7 @@ rel="stylesheet">
 				</div>
 			</div>
 			<div class="col">
-				<mvc:label path="matriculadoen">Matriculado En:</mvc:label>
+				<mvc:label path="matriculadoen"><spring:message code="etiqueta.matriculado" /></mvc:label>
 				<div class="input-group">
 					<div class="input-group">
 						<ul style="list-style-type: none;">
@@ -148,7 +148,7 @@ rel="stylesheet">
 				</div>
 			</div>
 			<div class="col">
-				<mvc:label path="hobbies">Hobbies:</mvc:label>
+				<mvc:label path="hobbies"><spring:message code="etiqueta.hobbies" /></mvc:label>
 				<div class="input-group">
 					<div class="input-group">
 						<mvc:textarea path="hobbies" rows="3" cols="70" />

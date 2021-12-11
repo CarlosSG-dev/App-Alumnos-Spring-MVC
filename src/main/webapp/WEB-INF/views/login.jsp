@@ -60,13 +60,13 @@ rel="stylesheet">
           <!-- Email input -->
           <div class="form-outline mb-4">
             <mvc:input path="nickname" type="text" id="form1Example13" class="form-control form-control-lg"></mvc:input>
-            <mvc:label path="nickname" class="form-label" for="form1Example13">Nickname</mvc:label>
+            <mvc:label path="nickname" class="form-label" for="form1Example13"><spring:message code="login.introduzca.usuario" /></mvc:label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
             <mvc:password path="password" class="form-control form-control-lg"></mvc:password>
-            <mvc:label path="password" class="form-label" for="form1Example23">Password</mvc:label>
+            <mvc:label path="password" class="form-label" for="form1Example23"><spring:message code="login.introduzca.pw" /></mvc:label>
           </div>
 
           <div class="d-flex justify-content-around align-items-center mb-4">

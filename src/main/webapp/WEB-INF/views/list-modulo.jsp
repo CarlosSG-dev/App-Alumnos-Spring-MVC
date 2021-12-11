@@ -44,16 +44,16 @@ rel="stylesheet">
 
 	<div class="container">
 	
-		<H1>Listado de Modulos:</H1>	
+		<H1><spring:message code="modulos.titulo" /></H1>	
 		<table class="table table-striped">
 		<tr>
 		<th> <a class="nav-link" href="list-modulo.do?orden=id">ID</a></th>
-		<th><a class="nav-link" href="list-modulo.do?orden=nombre">Nombre</a></th>
+		<th><a class="nav-link" href="list-modulo.do?orden=nombre"><spring:message code="etiqueta.nombre" /></a></th>
 		
-		<th><a class="nav-link" href="list-modulo.do?orden=horas">Horas</a></th>
-		<th><a class="nav-link" href="list-modulo.do?orden=abreviatura">Abreviatura</a></th>
+		<th><a class="nav-link" href="list-modulo.do?orden=horas"><spring:message code="etiqueta.horas" /></a></th>
+		<th><a class="nav-link" href="list-modulo.do?orden=abreviatura"><spring:message code="etiqueta.abreviatura" /></a></th>
 		
-		<th>Accion</th>
+		<th><spring:message code="etiqueta.accion" /></th>
 		</tr>
 		<c:forEach items="${modulos}" var="modulo">
 
@@ -62,7 +62,7 @@ rel="stylesheet">
 				<td>${modulo.getNombre()}</td>
 				<td>${modulo.getHoras()}</td>
 				<td>${modulo.getAbreviatura()}</td>
-			<td><a href="del-modulo?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td>
+			<td><a href="del-modulo?id=${modulo.getId()}" class="btn btn-danger"><spring:message code="boton.borrar" /></a></td>
 			<td><a href="list-uds" class="btn btn-primary"/>Uds</td>
 			<td><a href="add-uds" class="btn btn-primary"/>Añadir Uds</td>
 			<%-- td><a href="del-modulo.do?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td> --%>
@@ -84,17 +84,17 @@ rel="stylesheet">
 						required="required" class="form-control"/>
 				</div>
 				<div class="col">
-					<mvc:label path="nombre">Nombre</mvc:label> <mvc:input path="nombre" type="text"  id="nombre"
+					<mvc:label path="nombre"><spring:message code="etiqueta.nombre" /></mvc:label> <mvc:input path="nombre" type="text"  id="nombre"
 						class="form-control" required="required"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col">
-					<mvc:label path="horas">Horas</mvc:label> <mvc:input path="horas" type="number" id="horas"
+					<mvc:label path="horas"><spring:message code="etiqueta.horas" /></mvc:label> <mvc:input path="horas" type="number" id="horas"
 						class="form-control" required="required"/>
 				</div>
 				<div class="col">
-					<mvc:label path="abreviatura">Abreviatura</mvc:label> <mvc:input path="abreviatura" type="text"  id="abreviatura"
+					<mvc:label path="abreviatura"><spring:message code="etiqueta.abreviatura" /></mvc:label> <mvc:input path="abreviatura" type="text"  id="abreviatura"
 						class="form-control" required="required"/>
 				</div>
 			</div>

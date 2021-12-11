@@ -27,6 +27,29 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		</bean>
 	
+	
+	<!-- INTERNALIZACION I18N -->	
+	<bean id="messageSource"
+			class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+			<property name="basename" value="classpath:messages" />
+			<property name="defaultEncoding" value="UTF-8"/>			
+	</bean>
+	
+	<bean id="localeResolver"
+			class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+			<property name="defaultLocale" value="es" />
+						
+	</bean>
+	<mvc:interceptors>
+		<bean id="localeChangeInterceptor"
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="language" />
+		</bean>
+	
+	</mvc:interceptors>
+	<!-- FIN INTERNALIZACION -->
+	
+	
 	<mvc:resources location="/webjars/" mapping="/webjars/**"/>
 	<mvc:resources mapping="/imagenes/**" location="/resources/imagenes/"/>
 	<!--  <mvc:resources location="/resources/imagenUsuario" mapping="/AlumnosWebApp_DynamicFiles/**"></mvc:resources>

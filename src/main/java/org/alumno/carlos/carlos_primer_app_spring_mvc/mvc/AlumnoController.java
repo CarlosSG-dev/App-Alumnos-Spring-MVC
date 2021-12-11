@@ -24,6 +24,7 @@ import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Pagina;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Usuario;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.AlumnoService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.FileService;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.I18nService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.PaginaService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDuplicadoException;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoModificadoException;
@@ -55,9 +56,13 @@ public class AlumnoController {
 		
 		@Autowired
 		PaginaService paginaService;
+		Pagina pagina = new Pagina("Lista de alumnos","list-alumno");
 		
 		@Autowired
 		FileService fileService;
+		
+		@Autowired
+		I18nService language = new I18nService();
 		
 		@InitBinder
 		protected void initBinder(WebDataBinder binder) {
@@ -67,6 +72,9 @@ public class AlumnoController {
 		
 		@RequestMapping(value = "list-alumno", method = RequestMethod.GET)
 		public String listarAlumno(@RequestParam(required = false) String orden, ModelMap model) {
+			
+			pagina.setIdioma(language.getIdioma());
+			
 			model.put("alumnos", alumnoService.listaAlumnos(orden == null ? "" : orden));
 			model.addAttribute("filtroAlumno", new FiltroAlumno("", ""));
 			paginaService.setPagina(new Pagina("Lista de alumnos", "list-alumno"));

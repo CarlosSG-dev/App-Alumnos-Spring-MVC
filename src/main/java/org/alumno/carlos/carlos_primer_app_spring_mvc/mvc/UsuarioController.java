@@ -6,6 +6,7 @@ import org.alumno.carlos.carlos_primer_app_spring_mvc.model.ImagenUsuario;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Usuario;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.AlumnoService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.FileService;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.I18nService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
+
+
 import java.util.ArrayList;
 
 @Controller
@@ -32,6 +36,12 @@ public class UsuarioController {
 	
 	@Autowired
 	FileService fileService;
+	
+	@Autowired
+	AlumnoService alumnoService;
+	
+	@Autowired
+	I18nService language = new I18nService();
 	
 	@RequestMapping(value = "/imagenUsuario/{nickName}", method = RequestMethod.GET)
 	public ResponseEntity<FileSystemResource> getFile(@PathVariable("nickName") String nickName) {
@@ -89,7 +99,7 @@ public class UsuarioController {
 		if(!listaErroresAlGuardar.isEmpty()) {
 			String mensajeCompleto="";
 			for(String mensaje:listaErroresAlGuardar) {
-//				mensajeCompleto+=language.getTraduccion(mensaje)+"<br>";
+				mensajeCompleto+=language.getTraduccion(mensaje)+"<br>";
 			}
 		}
 		return "update-imagenUsuario";

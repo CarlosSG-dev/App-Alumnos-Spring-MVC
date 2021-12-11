@@ -51,14 +51,15 @@ rel="stylesheet">
 <%@ include file="../jspf/nav.jspf" %>
 
 	<div class="container">
-		<H1>Bienvenido ${nombre}</H1>
-		<H2>Listado de alumnos:</H2>
+		
+		<H1><spring:message code="home.bienvenida" /> ${nombre}</H1>
+		<H2><spring:message code="alumnos.titulo" /></H2>
 		
 		<mvc:form action="/carlos_primer_app_spring_mvc/filter-alumno" method="post"
 		modelAttribute="filtroAlumno">
 		<div class="row">
 			<div class="col">
-				<mvc:label path="type">Filtrar por:</mvc:label>
+				<mvc:label path="type"><spring:message code="boton.filtrar" /></mvc:label>
 				<div class="input-group">
 					<div class="input-group">
 						<mvc:select class="form-control" path="type">
@@ -68,7 +69,7 @@ rel="stylesheet">
 				</div>
 			</div>
 			<div class="col">
-				<mvc:label path="value">Como:</mvc:label>
+				<mvc:label path="value"><spring:message code="etiqueta.como" /></mvc:label>
 				<div class="form-group">
 					<mvc:input path="value" class="form-control w-75 d-inline-block"
 						type="text" id="value" placeholder="Search"></mvc:input>
@@ -81,14 +82,14 @@ rel="stylesheet">
 		
 		<table class="table table-striped">
 		<tr>
-		<th> <a class="nav-link" href="list-alumno?orden=dni">DNI</a></th>
-		<th><a class="nav-link" href="list-alumno?orden=nombre">Nombre</a></th>
+		<th> <a class="nav-link" href="list-alumno?orden=dni"><spring:message code="etiqueta.dni" /></a></th>
+		<th><a class="nav-link" href="list-alumno?orden=nombre"><spring:message code="etiqueta.nombre" /></a></th>
 		
-		<th><a class="nav-link" href="list-alumno?orden=edad">Edad</a></th>
-		<th><a class="nav-link" href="list-alumno?orden=ciclo">Ciclo</a></th>
-		<th><a class="nav-link" href="list-alumno?orden=curso">Curso</a></th>
-		<th><a class="nav-link" href="list-alumno?orden=erasmus">Erasmus</a></th>
-		<th class="">Acciones</th>
+		<th><a class="nav-link" href="list-alumno?orden=edad"><spring:message code="etiqueta.edad" /></a></th>
+		<th><a class="nav-link" href="list-alumno?orden=ciclo"><spring:message code="etiqueta.ciclo" /></a></th>
+		<th><a class="nav-link" href="list-alumno?orden=curso"><spring:message code="etiqueta.curso" /></a></th>
+		<th><a class="nav-link" href="list-alumno?orden=erasmus"><spring:message code="etiqueta.erasmus" /></a></th>
+		<th class="nav-link"><spring:message code="etiqueta.accion" /></th>
 		</tr>
 		<c:forEach items="${alumnos}" var="alumno">
 
@@ -102,16 +103,16 @@ rel="stylesheet">
 				<td><input type="checkbox" readonly
 						<c:if test="${alumno.isErasmus()}">checked</c:if>></td>
 				<td><a class="btn btn-success" href="update-alumno?dni=${alumno.getDni()}"><i class="fas fa-user-edit"></i>
-						Modificar</a></td>
-			<td><a href="del-alumno?dni=${alumno.getDni()}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Borrar</a></td> 
-			<td><a href="docs-alumno?dni=${alumno.getDni()}" class="btn btn-warning"><i class="fas fa-file-alt"></i> Documentacion</a></td> 
+						<spring:message code="boton.modificar" /></a></td>
+			<td><a href="del-alumno?dni=${alumno.getDni()}" class="btn btn-danger"><i class="fas fa-trash-alt"></i><spring:message code="boton.borrar" /></a></td> 
+			<td><a href="docs-alumno?dni=${alumno.getDni()}" class="btn btn-warning"><i class="fas fa-file-alt"></i><spring:message code="boton.documentacion" /></a></td> 
 			</div>
 			</tr>
 		</c:forEach>
 	
 	</table>
 	
-	<a href="add-alumno" class="btn btn-success btn-block"><i class="fas fa-user-plus"></i> Add alumno</a>
+	<a href="add-alumno" class="btn btn-success btn-block"><i class="fas fa-user-plus"></i><spring:message code="alumno.nuevo.titulo"/></a>
 
 	<footer class="footer">
 		<p>DWES: Desarrollo Web en Entorno Servidor - profesor: joseramon.profesor@gmail.com</p>
