@@ -17,12 +17,20 @@
 				<mvc:label path="comentario">Comentario</mvc:label>
 				<mvc:textarea path="comentario" rows="2" cols="70"/>
 			</div>
+			<!--  
+			<div class="col">
+			<mvc:label path="fichero"><spring:message code="etiqueta.seleccionar.archivo" /></mvc:label>
+			<mvc:input path="fichero" type="file" />	
+			</div>
+			-->
 			<div class="col">
 				<mvc:label path="tipo">Tipo:</mvc:label>
 				<ul>
 					<mvc:radiobuttons path="tipo" items="${opcionesTipoDoc}" element="p"/>
 				</ul>
 			</div>
+			
+			
 		
 		
 			<div class="col">

@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+
+
 @Service
 public class AlumnoService {
 	
@@ -242,13 +244,17 @@ public class AlumnoService {
 	}
 
 	
-	//FALTA COMPLETAR Y CORREGIR MÉTODO
-	public DocAlumno encontrarDocAlumnoPorDni_IdDoc(String dni, int idDoc) {
-		
-			DocAlumno doc = new DocAlumno(dni,idDoc,"","");
-			doc.getDni();
-			doc.getId();
+	
+	public Optional<DocAlumno> encontrarDocAlumnoPorDni_IdDoc(String dni, int idDoc) {
+		Optional<Alumno> alumno = alumnos.stream().filter(a -> a.getDni().equals(dni)).findFirst();
+		if (alumno.isPresent()) {
+			Alumno alumnoDoc = alumno.get();
+			Optional<DocAlumno> doc = alumnoDoc.getDocsAlumno().stream().filter(b -> b.getId()==idDoc).findFirst();
+			if(doc.isPresent())
+				System.out.println("Encontrar documento alumno:  "+doc);
 			return doc;
+		}
+		return null;
 	}
 	
 	

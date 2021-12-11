@@ -87,6 +87,8 @@ public class FileService {
 		System.out.println("extension "+extension);
 		return nombreFichero;
 	}
+	
+	
 	public String getExtensionMultipartFile(MultipartFile fichero) {
 		String extension="";
 		
@@ -97,5 +99,19 @@ public class FileService {
 				return "";
 			}
 		}
+	
+	public ArrayList<String> guardaDocumentoAlumno(MultipartFile fichero, String nickName) {
+		String nombreFichero= getNombreDocumentoAlumno(fichero,nickName);
+		System.out.println("nombreFichero "+nombreFichero);
+		if(!ValidadorDocumentoAlumno.DocumentoValido(fichero)) {
+			return ValidadorDocumentoAlumno.mensajesErrorDocumento(fichero);
+		}
+		
+		String errorAlGuardar=guardarFichero(CARPETA_IMAGENES_USUARIOS+SEPARATOR+nombreFichero,fichero);
+			if(errorAlGuardar==null)
+				return new ArrayList<String>();
+			else
+				return new ArrayList<String>(List.of(errorAlGuardar));
+	}
 	
 }
