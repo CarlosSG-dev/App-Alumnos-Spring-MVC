@@ -242,6 +242,15 @@ public class AlumnoService {
 	}
 
 	
+	//FALTA COMPLETAR Y CORREGIR MÉTODO
+	public DocAlumno encontrarDocAlumnoPorDni_IdDoc(String dni, int idDoc) {
+		
+			DocAlumno doc = new DocAlumno(dni,idDoc,"","");
+			doc.getDni();
+			doc.getId();
+			return doc;
+	}
+	
 	
 	
 }

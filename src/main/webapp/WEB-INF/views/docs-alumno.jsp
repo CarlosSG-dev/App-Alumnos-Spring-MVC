@@ -34,6 +34,7 @@
 			<th>Id</th>
 			<th>Tipo</th>
 			<th>Comentario</th>
+			<th>Accion</th>
 		</thead>
 		
 		<tbody>
@@ -42,6 +43,8 @@
 					<td>&nbsp;${docAlumno.getId()}&nbsp;</td>
 					<td>&nbsp;${docAlumno.getTipo()}&nbsp;</td>
 					<td>&nbsp;${docAlumno.getComentario()}&nbsp;</td>
+					<td>&nbsp;<a class="btn btn-primary" href="descargar-docAlumno?dni=${alumno.getDni()}?idDoc=${docAlumno.getId()}">
+					<i class="fas fa-file-download"></i> Descargar</a>&nbsp;</td>
 				</tr>
 				</c:forEach>
 		</tbody>	

@@ -3,11 +3,17 @@ package org.alumno.carlos.carlos_primer_app_spring_mvc.mvc;
 
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Alumno;
@@ -17,21 +23,28 @@ import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Modulo;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Pagina;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Usuario;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.AlumnoService;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.FileService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.PaginaService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDuplicadoException;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoModificadoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @SessionAttributes("nombre")
@@ -42,6 +55,9 @@ public class AlumnoController {
 		
 		@Autowired
 		PaginaService paginaService;
+		
+		@Autowired
+		FileService fileService;
 		
 		@InitBinder
 		protected void initBinder(WebDataBinder binder) {
@@ -264,6 +280,43 @@ public class AlumnoController {
 			return "redirect:docs-alumno?dni=" +docAlumno.getDni();
 		}
 		
+		
+		@RequestMapping(value="/descargar-docAlumno/{dni}/{idDoc}", method = RequestMethod.GET)
+		public @ResponseBody void descargarDocAlumno(HttpServletResponse response, @PathVariable("dni") String dni,
+				@PathVariable("idDoc") Integer idDoc) throws IOException{
+			
+			try {
+				
+				Optional<DocAlumno> docAlumno = alumnoService.encontrarDocAlumnoPorDni_IdDoc(dni, idDoc);
+				
+				if(docAlumno.isPresent()) { //existe el documento de ese alumno con ese id
+					//Obtener fichero
+					String nombreFichero=dni+"_idDoc_"+idDoc+"."+docAlumno.get().getTipo();
+					FileSystemResource resource = fileService.getDocumentoAlumno(nombreFichero);
+				if(!resource.exists()) {
+					throw new IOException("El documento con el dni '"+dni+"' y el id '"+idDoc+"' no existe;");
+				}
+				
+				File fichero=resource.getFile();
+				//Montar respuesta para el navegador web
+				
+				response.setContentType(docAlumno.get().getContentTypeFichero());
+				response.setHeader("Content-Disposition", "attachment: filename=" + fichero.getName());
+				response.setHeader("Content-Length", String.valueOf(fichero.length()));
+				
+				InputStream in = new FileInputStream(fichero);
+				FileCopyUtils.copy(in, response.getOutputStream());
+				}else {
+					throw new IOException("El documento con el dni '"+dni+"' y el id '"+idDoc+"' no existe;");
+					
+				}
+				
+				
+			}catch(Exception e) {//Ante cualquier error
+				//Devolver error 404-recurso no encontrado
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+			}
+		}
 		
 		
 }

@@ -101,17 +101,17 @@ rel="stylesheet">
 				<div class="row">
 				<td><input type="checkbox" readonly
 						<c:if test="${alumno.isErasmus()}">checked</c:if>></td>
-				<td><a class="btn btn-success" href="update-alumno?dni=${alumno.getDni()}"><i class="fa fa-user-o" aria-hidden="true"></i>
+				<td><a class="btn btn-success" href="update-alumno?dni=${alumno.getDni()}"><i class="fas fa-user-edit"></i>
 						Modificar</a></td>
-			<td><a href="del-alumno?dni=${alumno.getDni()}" class="btn btn-danger">Borrar</a></td> 
-			<td><a href="docs-alumno?dni=${alumno.getDni()}" class="btn btn-warning">Documentacion</a></td> 
+			<td><a href="del-alumno?dni=${alumno.getDni()}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Borrar</a></td> 
+			<td><a href="docs-alumno?dni=${alumno.getDni()}" class="btn btn-warning"><i class="fas fa-file-alt"></i> Documentacion</a></td> 
 			</div>
 			</tr>
 		</c:forEach>
 	
 	</table>
 	
-	<a href="add-alumno" class="btn btn-success btn-block">Add alumno</a>
+	<a href="add-alumno" class="btn btn-success btn-block"><i class="fas fa-user-plus"></i> Add alumno</a>
 
 	<footer class="footer">
 		<p>DWES: Desarrollo Web en Entorno Servidor - profesor: joseramon.profesor@gmail.com</p>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Usuario;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.utils.Ts;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,5 +41,19 @@ public class LoginService {
 		
 		
 
+	}
+	
+	public void modificaUsuario(Usuario usuarioModificado, String usuarioModificacion){
+		Usuario usuario = encontrarUsuarioPorNickName(usuarioModificacion);
+		if(usuario != null) {
+			for(int i = 0; i < usuarios.size(); i++) {
+				if(usuarios.get(i).getNickname().contentEquals(usuarioModificado.getNickname())) {
+					usuarioModificado.setTs(Ts.today());
+					usuarioModificado.setUser(usuarioModificacion);
+					usuarios.set(i, usuarioModificado);
+					break;
+				}
+			}
+		}
 	}
 }

@@ -35,7 +35,7 @@
           &nbsp;${loginName}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" href="update-imagenUsuario?nickName=${loginNickName}">
 			<i class="fas fa-pen"></i>&nbsp; Editar
 		  </a>
           <a class="dropdown-item" href="#">

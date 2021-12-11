@@ -1,5 +1,6 @@
 package org.alumno.carlos.carlos_primer_app_spring_mvc.model;
 
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -13,7 +14,7 @@ public class DocAlumno implements Comparable<DocAlumno>{
 	private String tipo;
 	@Size(min = 10, message = "Los comentarios deben tener al menos 10 caracteres")
 	private String comentario;
-	
+
 	
 	
 	public DocAlumno(int a) {
