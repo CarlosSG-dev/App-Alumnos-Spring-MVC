@@ -12,7 +12,7 @@
 				<br>
 				<mvc:form method="post" action="guardar-imagen-usuario" enctype="multipart/form-data" modelAttribute="imagenUsuario">
 				<br>
-				<mvc:hidden path="nickname"/>
+				<mvc:hidden path="nickname" value="${loginNickName}"/>
 				<mvc:label path="imagen"><spring:message code="usuarioImagen.explicacion" /></mvc:label>
 				<br>
 				<mvc:input path="imagen" type="file" /><form:errors path="imagen"/><br>

@@ -94,16 +94,27 @@ public class LoginController {
 		}
 		
 			
-		
-		model.put("nombre", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
-		model.addAttribute("usuario", usuario);
-		
-		model.put("loginNickName", loginService.encontrarUsuarioPorNickName(usuario.getNickname()));
-		model.put("loginName", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
-		
-		model.addAttribute("loginNickName", loginService.encontrarUsuarioPorNickName(usuario.getNickname()));
-		model.addAttribute("loginName", loginService.encontrarUsuarioPorNickName(usuario.getNickname()).getNombre());
-			return "redirect:list-alumno";
+		Usuario usuarioEncontrado = loginService.encontrarUsuarioPorNickName(usuario.getNickname());
+		Usuario desconocido = new Usuario("desconocido", "Desconocido", "", "usuarioSinFoto.jpg");
+		if (usuarioEncontrado != null) {
+			model.put("nombre", usuarioEncontrado.getNombre());
+			model.addAttribute("usuario", usuarioEncontrado);
+			model.put("loginNickName", usuarioEncontrado.getNickname());
+			model.put("loginName", usuarioEncontrado.getNombre());
+			
+			model.addAttribute("loginNickName", usuarioEncontrado.getNickname());
+			model.addAttribute("loginName", usuarioEncontrado.getNombre());			
+			
+		} else {
+			model.put("nombre", desconocido.getNombre());
+			model.addAttribute("usuario", desconocido);
+			model.put("loginNickName", desconocido.getNickname());
+			model.put("loginName", desconocido.getNombre());
+			
+			model.addAttribute("loginNickName", desconocido.getNickname());
+			model.addAttribute("loginName", desconocido.getNombre());		
+		}
+		return "redirect:list-alumno";
 		
 		
 		

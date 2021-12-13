@@ -28,7 +28,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 
 @Controller
-@SessionAttributes({"loginName","loginNickName","user"})
+@SessionAttributes({"loginName","loginNickName","user", "usuario"})
 public class UsuarioController {
 
 	@Autowired
@@ -82,27 +82,41 @@ public class UsuarioController {
 	@RequestMapping(value= "/guardar-imagen-usuario", method = RequestMethod.POST)
 	public String guardarImagenUsuario(ModelMap model, @Valid ImagenUsuario imagenUsuario, BindingResult validacion) {
 		Usuario usuario = (Usuario) model.getAttribute("usuario");
+		System.out.println(usuario.getNickname());
+	
 		String nickName=imagenUsuario.getNickname();
 		MultipartFile fichero =imagenUsuario.getImagen();
-		if (validacion.hasErrors()) {
-			return "update-imagenUsuario";
-		}
+//		if (validacion.hasErrors()) {
+//			return "update-imagenUsuario";
+//		}
 		if(usuario.getNickname() == "") {
-			return "update-imagenUsuario";
+			System.out.println("Redirecciono 1");
+			return "redirect:update-imagenUsuario?nickName=" + imagenUsuario.getNickname();
 		}else {
-			usuario.setNombreFicheroConImagen(imagenUsuario.getImagen().getOriginalFilename());
+			
 			fileService.guardaImagenUsuario(imagenUsuario.getImagen(),imagenUsuario.getNickname());
 			loginService.modificaUsuario(usuario,usuario.getNickname());
-			model.addAttribute("imagenUsuario",new ImagenUsuario(imagenUsuario.getNickname()));
+			
 		}
-		ArrayList<String> listaErroresAlGuardar=fileService.guardaImagenUsuario(fichero, nickName);
-		if(!listaErroresAlGuardar.isEmpty()) {
-			String mensajeCompleto="";
-			for(String mensaje:listaErroresAlGuardar) {
-				mensajeCompleto+=language.getTraduccion(mensaje)+"<br>";
+		Object result=fileService.guardaImagenUsuario(fichero, nickName);
+		
+		if (result instanceof ArrayList) {
+			@SuppressWarnings("unchecked")
+			ArrayList<String> listaErroresAlGuardar = (ArrayList<String>) result;
+			
+			if(!listaErroresAlGuardar.isEmpty()) {
+				String mensajeCompleto="";
+				for(String mensaje:listaErroresAlGuardar) {
+					mensajeCompleto+=language.getTraduccion(mensaje)+"<br>";
+				}
 			}
+			
+		} else if (result instanceof String) {
+			String route = (String) result;
+			usuario.setNombreFicheroConImagen(route);
+			model.addAttribute("imagenUsuario", imagenUsuario);
 		}
-		return "update-imagenUsuario";
+		return "redirect:update-imagenUsuario?nickName=" + imagenUsuario.getNickname();
 		
 	}
 }

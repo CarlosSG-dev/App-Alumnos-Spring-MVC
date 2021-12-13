@@ -1,4 +1,4 @@
-package org.alumno.carlos.carlos_primer_app_spring_mvc.excepciones;
+package org.alumno.carlos.carlos_primer_app_spring_mvc.mvc.validaciones;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,9 +7,11 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+
+
 	@Target(ElementType.FIELD)
 	@Retention(RetentionPolicy.RUNTIME)
-//	@Constraint(validatedBy = {ValidadorImagenes.class})
+	@Constraint(validatedBy = {ValidadorImagenes.class})
 	public @interface ImagenValida{
 		String message() default "{imagenValida.mensajePorDefecto}";
 		Class<?>[] groups() default {};

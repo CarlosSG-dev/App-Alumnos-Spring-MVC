@@ -42,15 +42,21 @@ public class FileService {
 		return new FileSystemResource(new File(CARPETA_IMAGENES_USUARIOS, fichero));
 	}
 	
-	public String guardarFichero(String ruta, MultipartFile fichero) {
+	public String guardarFichero(String ruta, String filename, MultipartFile fichero) {
 		try {
 			//Obtener datos del fichero
 			byte[] fileBytes = fichero.getBytes();
 			//Obtener ruta
-			Path path = Paths.get(ruta);
+			Path path = Paths.get(ruta + SEPARATOR + filename);
 			//Guardar fichero
 			//El fichero no tiene porque existir en la ruta, pero 
 			//si la carpeta destino no existe se producirá una excepción
+			File directory = new File(ruta);
+		    if (! directory.exists()){
+		        directory.mkdirs();
+		    }
+			
+			
 			Files.write(path, fileBytes);
 			
 		}catch(NoSuchFileException e) {
@@ -61,16 +67,16 @@ public class FileService {
 		return null;
 	}
 	
-	public ArrayList<String> guardaImagenUsuario(MultipartFile fichero, String nickName) {
+	public Object guardaImagenUsuario(MultipartFile fichero, String nickName) {
 		String nombreFichero= getNombreImagenUsuario(fichero,nickName);
 		System.out.println("nombreFichero "+nombreFichero);
 		if(!ValidadorImagenes.imagenValida(fichero)) {
 			return ValidadorImagenes.mensajesErrorImagen(fichero);
 		}
 		
-		String errorAlGuardar=guardarFichero(CARPETA_IMAGENES_USUARIOS+SEPARATOR+nombreFichero,fichero);
+		String errorAlGuardar=guardarFichero(CARPETA_IMAGENES_USUARIOS, nombreFichero, fichero);
 			if(errorAlGuardar==null)
-				return new ArrayList<String>();
+				return nombreFichero;
 			else
 				return new ArrayList<String>(List.of(errorAlGuardar));
 	}
@@ -107,7 +113,7 @@ public class FileService {
 			return ValidadorDocumentoAlumno.mensajesErrorDocumento(fichero);
 		}
 		
-		String errorAlGuardar=guardarFichero(CARPETA_IMAGENES_USUARIOS+SEPARATOR+nombreFichero,fichero);
+		String errorAlGuardar=guardarFichero(CARPETA_IMAGENES_USUARIOS, nombreFichero,fichero);
 			if(errorAlGuardar==null)
 				return new ArrayList<String>();
 			else

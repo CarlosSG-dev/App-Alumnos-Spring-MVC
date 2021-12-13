@@ -4,39 +4,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+//import javax.validation.ConstraintValidator;
+//import javax.validation.ConstraintValidatorContext;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
-	public class ValidadorImagenes implements ConstraintValidator<ImagenValida, MultipartFile>{
+public class ValidadorImagenes { // implements ConstraintValidator<ImagenValida, MultipartFile>
 	public static final List<String> tiposDeimagenes= Arrays.asList("image/png","image/jpg","image/jpeg","image/gif");
 	public static final long MAX_BYTES= 524288;
 
 	
-	@Override
-	public void initialize(ImagenValida constrainAnnotation) {
-		
-	}
-
-	@Override
-	public boolean isValid(MultipartFile multipartFile, ConstraintValidatorContext context) {
-			
-		boolean result = true;
-		
-		ArrayList<String> listaErrores= mensajesErrorImagen(multipartFile);
-		if(!listaErrores.isEmpty()) {
-			context.disableDefaultConstraintViolation();
-			for(String textoError:listaErrores) {
-				context.buildConstraintViolationWithTemplate(textoError).addConstraintViolation();
-			}
-			result = false;
-		}
-		
-		return result;
-		}
+//	@Override
+//	public void initialize(ImagenValida constrainAnnotation) {
+//		
+//	}
+//
+//	@Override
+//	public boolean isValid(MultipartFile multipartFile, ConstraintValidatorContext context) {
+//			
+//		boolean result = true;
+//		
+//		ArrayList<String> listaErrores= mensajesErrorImagen(multipartFile);
+//		if(!listaErrores.isEmpty()) {
+//			context.disableDefaultConstraintViolation();
+//			for(String textoError:listaErrores) {
+//				context.buildConstraintViolationWithTemplate(textoError).addConstraintViolation();
+//			}
+//			result = false;
+//		}
+//		
+//		return result;
+//		}
 	public static ArrayList<String> mensajesErrorImagen(MultipartFile fichero){
 			
 		ArrayList<String> errores=new ArrayList<String>();

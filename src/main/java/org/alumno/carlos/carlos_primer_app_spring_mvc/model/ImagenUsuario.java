@@ -14,8 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 		private static final long serialVersionUID = 1L;
 		@Size(min=5,message="El usuario debe de tener un tamaño mínimo de 5 carácteres")
 		private String nickname;
-		@NotNull@ImagenValida
-		private MultipartFile imagen;
+		@NotNull
+		
+		private MultipartFile imagen; /** @ImagenValida */
 		
 		public ImagenUsuario() {
 		}
