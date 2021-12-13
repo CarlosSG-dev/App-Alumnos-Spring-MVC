@@ -73,11 +73,13 @@ public class AlumnoController {
 		@RequestMapping(value = "list-alumno", method = RequestMethod.GET)
 		public String listarAlumno(@RequestParam(required = false) String orden, ModelMap model) {
 			
+			Pagina pagina = new Pagina("Lista de alumnos", "list-alumno");
 			pagina.setIdioma(language.getIdioma());
+			paginaService.setPagina(pagina);
 			
 			model.put("alumnos", alumnoService.listaAlumnos(orden == null ? "" : orden));
 			model.addAttribute("filtroAlumno", new FiltroAlumno("", ""));
-			paginaService.setPagina(new Pagina("Lista de alumnos", "list-alumno"));
+			paginaService.setPagina(pagina);
 			model.put("pagina", paginaService.getPagina());
 			
 			return "list-alumno";
@@ -87,7 +89,9 @@ public class AlumnoController {
 		
 		@RequestMapping(value = "add-alumno", method = RequestMethod.GET)
 		public String mostrarAlumno(ModelMap model) {
-			paginaService.setPagina(new Pagina("Añadir alumno", "list-alumno"));
+			Pagina pagina = new Pagina("Añadir alumno", "list-alumno");
+			pagina.setIdioma(language.getIdioma());
+			paginaService.setPagina(pagina);
 			model.put("pagina", paginaService.getPagina());
 			model.addAttribute("alumno", new Alumno("Nuevo Alumno","",18,"DAW",2));
 			return "add-alumno";
@@ -141,6 +145,10 @@ public class AlumnoController {
 		
 		@RequestMapping(value = "update-alumno", method = RequestMethod.GET)
 		public String modificarAlumno(ModelMap model, @RequestParam String dni) {
+			
+			Pagina pagina = new Pagina("Modificar alumno", "list-alumno");
+			pagina.setIdioma(language.getIdioma());
+			paginaService.setPagina(pagina);
 			
 			paginaService.setPagina(new Pagina("Modificar alumno", "list-alumno"));
 			model.put("pagina", paginaService.getPagina());
@@ -225,6 +233,10 @@ public class AlumnoController {
 			paginaService.setPagina(new Pagina("Documentacion", "docs-alumno"));
 			model.put("pagina", paginaService.getPagina());
 			
+			Pagina pagina = new Pagina("Documentacion", "docs-alumno");
+			pagina.setIdioma(language.getIdioma());
+			paginaService.setPagina(pagina);
+			
 			model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(dni));
 			model.addAttribute("docAlumno", new DocAlumno(alumnoService.siguienteDoc(dni)));
 			
@@ -241,6 +253,9 @@ public class AlumnoController {
 			DocAlumno docAlumno = new DocAlumno();
 			docAlumno.setDni(dni);
 			paginaService.setPagina(new Pagina("Añadir documentacion alumno", "doc-alumno"));
+			Pagina pagina = new Pagina("Añadir documentacion alumno", "doc-alumno");
+			pagina.setIdioma(language.getIdioma());
+			paginaService.setPagina(pagina);
 			model.put("pagina", paginaService.getPagina());
 			model.addAttribute("docAlumno", docAlumno);
 			model.addAttribute("alumno", alumnoService.encontrarAlumnoPorDni(docAlumno.getDni()));
