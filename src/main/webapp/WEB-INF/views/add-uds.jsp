@@ -42,18 +42,30 @@ rel="stylesheet">
 	<div class="container">
 	<input href="/list-uds.do" type="submit" value="Volver al Listado" name="boton"
 		class="btn btn-success "></input>
-	<h1>Añadir nueva Uds</h1>
-		<form action="add-uds.do" method="POST">
+	<h1><spring:message code="anyadir.ud" /></h1>
+	
+	
+	
+		<form action="add-uds.do" method="POST" modelAttribute="udsModulo">
+		
+		
+		<mvc:errors path="*" cssClass="text-warning"></mvc:errors>
+		
+		
+	
+		
+		
+		
 		<div class=row>
 			<p style="color:red" class="errores">${errores}</p>
 		</div>
 			<div class="row">
 				<div class="col">
-					<label>Nombre</label> <input type="text" name="nombre" id="nombre"
+					<label><spring:message code="etiqueta.nombre" /></label> <input type="text" name="nombre" id="nombre"
 						required class="form-control" minleght="5">
 				</div>
 				<div class="col">
-					<label>Horas</label> <input type="number" name="horas" id="horas"
+					<label><spring:message code="etiqueta.horas" /></label> <input type="number" name="horas" id="horas"
 						class="form-control" required>
 				</div>
 			</div>
@@ -78,8 +90,8 @@ rel="stylesheet">
 			<br>
 			<div class="row">
 			<div class="col">
-				<input href="/add-uds.do" type="submit" value="Añadir" name="boton"
-		class="btn btn-success btn-block"></input>
+				<input href="add-uds" type="submit" value="Añadir" name="boton"
+		class="btn btn-success btn-block"><i class="fas fa-plus-square"></i></input>
 			</div>
 			</div>
 			

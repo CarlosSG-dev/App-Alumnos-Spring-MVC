@@ -64,7 +64,7 @@ rel="stylesheet">
 				<td>${modulo.getAbreviatura()}</td>
 			<td><a href="del-modulo?id=${modulo.getId()}" class="btn btn-danger"><spring:message code="boton.borrar" /></a></td>
 			<td><a href="list-uds" class="btn btn-primary"/>Uds</td>
-			<td><a href="add-uds" class="btn btn-primary"/>Añadir Uds</td>
+			
 			<%-- td><a href="del-modulo.do?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td> --%>
 			</tr>
 		</c:forEach>

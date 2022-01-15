@@ -1,6 +1,8 @@
 package org.alumno.carlos.carlos_primer_app_spring_mvc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -10,6 +12,7 @@ public class Modulo implements Serializable, Comparable<Modulo>{
 	private String nombre;
 	private int horas;
 	private String abreviatura;
+	private static ArrayList<Ud> uds = new ArrayList<Ud>();
 	
 	public Modulo(int id, String nombre, int horas, String abreviatura) {
 		super();
@@ -17,7 +20,26 @@ public class Modulo implements Serializable, Comparable<Modulo>{
 		this.nombre = nombre;
 		this.horas = horas;
 		this.abreviatura = abreviatura;
+		this.uds = new ArrayList<>();
 	}
+	
+	
+	
+	
+
+	public static List<Ud> getUds() {
+		return uds;
+	}
+
+
+
+	public static void setUds(ArrayList<Ud> uds) {
+		Modulo.uds = uds;
+		
+		
+	}
+
+
 
 	public Modulo() {
 		super();

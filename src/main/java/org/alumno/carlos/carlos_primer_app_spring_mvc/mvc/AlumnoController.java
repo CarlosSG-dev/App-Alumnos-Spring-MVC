@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,11 +22,13 @@ import org.alumno.carlos.carlos_primer_app_spring_mvc.model.DocAlumno;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.FiltroAlumno;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Modulo;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Pagina;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Ud;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.model.Usuario;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.AlumnoService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.FileService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.I18nService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.PaginaService;
+import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.UdService;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoDuplicadoException;
 import org.alumno.carlos.carlos_primer_app_spring_mvc.srv.excepciones.AlumnoModificadoException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +51,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
 @Controller
-@SessionAttributes("nombre")
+@SessionAttributes({"nombre", "loginName","loginNickName", "usuario"})
 public class AlumnoController {
 
 		@Autowired
@@ -60,6 +63,9 @@ public class AlumnoController {
 		
 		@Autowired
 		FileService fileService;
+		
+		@Autowired
+		UdService udService;
 		
 		@Autowired
 		I18nService language = new I18nService();
@@ -202,6 +208,10 @@ public class AlumnoController {
 		@ModelAttribute("modulosLista")
 		public List<Modulo> getModulosLista() {
 			return alumnoService.listaModulos();
+		}
+		@ModelAttribute("udsLista")
+		public List<Ud> getUdsLista() {
+			return udService.listaUds("");
 		}
 		
 		@ModelAttribute("searchLista")

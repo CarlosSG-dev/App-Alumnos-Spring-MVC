@@ -24,6 +24,9 @@ public class AlumnoService {
 	@Autowired
 	ModuloService modulosService;
 	
+	@Autowired
+	UdService udService;
+	
 	
 	private static List<Alumno> alumnos = new ArrayList<Alumno>();
 	
@@ -233,6 +236,10 @@ public class AlumnoService {
 
 	public List<Modulo> listaModulos() {
 		return modulosService.listaModulos("");
+	}
+	
+	public List<Ud> listaUds() {
+		return udService.listaUds("");
 	}
 	
 	public HashMap<String, String> listaSearch() {

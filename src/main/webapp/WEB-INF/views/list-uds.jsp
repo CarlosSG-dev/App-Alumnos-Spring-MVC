@@ -20,23 +20,8 @@ rel="stylesheet">
 
 <body>
 
-	<nav class="navbar navbar-default">
-
-		<a href="http://ieslluissimarro.org/" class="navbar-brand">Simarro</a>
-
-		<nav class="nav nav-pills flex-column flex-sm-row">
-			<a class="nav-link " href="/login.do">Home</a>
-			<a class="nav-link" href="/list-alumno.do">Alumnos</a>
-			<a class="nav-link active" href="/list-modulo.do">Modulos</a>
-			<a class="nav-link" href="https://aules.edu.gva.es/fp/course/view.php?id=60536">DWES</a>
-		</nav>
- 
- 
-		<ul class="nav navbar-nav navbar-right">
-			<li><a class="nav-link" href="/logout.do">Logout</a></li>
-		</ul>
-
-	</nav>
+	<%@ include file="../jspf/header.jspf" %>
+<%@ include file="../jspf/nav.jspf" %>
 
 	<div class="container">
 	
@@ -44,12 +29,12 @@ rel="stylesheet">
 		<table class="table table-striped">
 		<tr>
 		<th> <a class="nav-link" href="list-modulo.do?orden=id">ID</a></th>
-		<th><a class="nav-link" href="list-modulo.do?orden=nombre">Nombre</a></th>
+		<th><a class="nav-link" href="list-modulo.do?orden=nombre"><spring:message code="etiqueta.nombre" /></a></th>
 		
-		<th><a class="nav-link" href="list-modulo.do?orden=horas">Horas</a></th>
-		<th><a class="nav-link" href="list-modulo.do?orden=abreviatura">Abreviatura</a></th>
+		<th><a class="nav-link" href="list-modulo.do?orden=horas"><spring:message code="etiqueta.horas" /></a></th>
+		<th><a class="nav-link" href="list-modulo.do?orden=abreviatura"><spring:message code="etiqueta.abreviatura" /></a></th>
 		
-		<th>Accion</th>
+		<th><spring:message code="etiqueta.accion" /></th>
 		</tr>
 		<c:forEach items="${modulos}"  var="modulo" >
 
@@ -58,9 +43,9 @@ rel="stylesheet">
 				<td>${modulo.getNombre()}</td>
 				<td>${modulo.getHoras()}</td>
 				<td>${modulo.getAbreviatura()}</td>
-			<td><a href="del-modulo.do?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td>
+			<td><a href="del-modulo.do?id=${modulo.getId()}" class="btn btn-danger"><i class="fas fa-trash-alt"></i><spring:message code="boton.borrar" /></a></td>
 			
-				<td><a href="list-uds.do?id=${ud.getId()}" class="btn btn-primary"/></td>
+				<td><a href="add-uds.do?id=${ud.getId()}" class="btn btn-primary"/><i class="fas fa-plus-square"></i><spring:message code="boton.anyadir" /></td>
 			
 			
 			<%-- td><a href="del-modulo.do?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td> --%>
@@ -74,21 +59,21 @@ rel="stylesheet">
 	<table class="table table-striped">
 		<tr>
 		<th> <a class="nav-link" href="list-uds.do?orden=id">ID</a></th>
-		<th><a class="nav-link" href="list-uds.do?orden=nombre">Nombre</a></th>
+		<th><a class="nav-link" href="list-uds.do?orden=nombre"><spring:message code="etiqueta.nombre" /></a></th>
 		
-		<th><a class="nav-link" href="list-uds.do?orden=horas">Horas</a></th>
+		<th><a class="nav-link" href="list-uds.do?orden=horas"><spring:message code="etiqueta.horas" /></a></th>
 		<th><a class="nav-link" href="list-uds.do?orden=orden">Orden</a></th>
 		
-		<th>Accion</th>
+		<th><spring:message code="etiqueta.accion" /></th>
 		</tr>
-		<c:forEach items="${uds}" var="uds">
+		<c:forEach items="${udsModulos}" var="udsModulos">
 
 			<tr>
-				<td>${uds.getIdModulo()}</td>
-				<td>${uds.getNombre()}</td>
-				<td>${uds.getHoras()}</td>
-				<td>${uds.getOrden()}</td>
-			<td><a href="del-uds.do?id=${uds.getId()}" class="btn btn-danger">Borrar</a></td>
+				<td>${udsModulos.getIdModulo()}</td>
+				<td>${udsModulos.getNombre()}</td>
+				<td>${udsModulos.getHoras()}</td>
+				<td>${udsModulos.getOrden()}</td>
+			<td><a href="del-uds?id=${udsModulos.getId()}" class="btn btn-danger"><i class="fas fa-trash-alt"></i><spring:message code="boton.borrar" /></a></td>
 			
 			<%-- td><a href="del-modulo.do?id=${modulo.getId()}" class="btn btn-danger">Borrar</a></td> --%>
 			</tr>
